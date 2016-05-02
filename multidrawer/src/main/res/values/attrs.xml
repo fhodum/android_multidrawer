@@ -5,5 +5,12 @@
             <enum name="left" value="0"/>
             <enum name="right" value="1"/>
         </attr>
+        <attr name="buttonPaddingTop" format="dimension"/>
+        <attr name="buttonPaddingLeft" format="dimension"/>
+        <attr name="buttonPaddingBottom" format="dimension"/>
+        <attr name="buttonPaddingRight" format="dimension"/>
+        <attr name="buttonSelectBackgroundColor" format="color"/>
+        <attr name="animationOpenCloseTime" format="integer"/>
+
     </declare-styleable>
 </resources>

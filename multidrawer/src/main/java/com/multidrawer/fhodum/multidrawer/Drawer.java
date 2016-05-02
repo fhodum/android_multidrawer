@@ -7,6 +7,16 @@ import android.view.View;
  */
 public class Drawer {
 
+    public interface DrawerCallbacks {
+
+        public void drawerOpened();
+
+        public void drawerClosed();
+    }
+
+
+
+
     private View button;
     private View body;
 
@@ -54,4 +64,6 @@ public class Drawer {
     View getButton() {
         return button;
     }
+
+
 }

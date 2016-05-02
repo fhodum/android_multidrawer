@@ -80,6 +80,8 @@ public class MultiDrawerView extends LinearLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MultiDrawerView, defStyleAttr, defStyleRes);
 
         //Get left or right from configuration set. For right now, assume right
+        int side = a.getInteger(R.styleable.MultiDrawerView_side,1);
+        
 
         buttonScrollView = new ScrollView(context, attrs,defStyleAttr,defStyleRes) ;//requestLayout();
         buttonScrollView.setBackgroundColor(Color.TRANSPARENT);

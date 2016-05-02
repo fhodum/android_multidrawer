@@ -3,7 +3,9 @@ package com.multidrawer.fhodum.multidrawer;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -28,11 +30,13 @@ public class MultiDrawerView extends LinearLayout {
     private LinearLayout buttonLinearLayout;
     private LinearLayout bodyLayout;
     private Vector<Drawer> drawers = null;
-    private int currentSelectedDrawer = -1;
+
 
     private boolean isDrawerOpen = true;
     private boolean isAnimating = false;
     private View lastClcikedButton = null;
+
+    private int animationTime = 500;
 
     private Map<View,View> buttonToBodyView = new HashMap<>();
 
@@ -95,8 +99,16 @@ public class MultiDrawerView extends LinearLayout {
 
     public  void addDrawer(Drawer drawer){
         View button = drawer.getButton();
-        button.setOnClickListener(new RightButtonClickListener());
-        buttonLinearLayout.addView(button);
+        button.setOnClickListener(new RightSideButtonClickListener());
+        LinearLayout buttonWrapper = new LinearLayout(getContext());
+        buttonWrapper.setOrientation(VERTICAL);
+        buttonWrapper.addView(button);
+        LinearLayout.LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (5*scale + 0.5f);
+        buttonWrapper.setPadding(dpAsPixels,dpAsPixels,0,dpAsPixels);
+        buttonLinearLayout.addView(buttonWrapper, layoutParams);
+
         View body = drawer.getBody();
         bodyLayout.addView(body);
         buttonToBodyView.put(button,body);
@@ -110,27 +122,55 @@ public class MultiDrawerView extends LinearLayout {
     }
 
 
-    private class RightButtonClickListener implements View.OnClickListener {
+    private class RightSideButtonClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
 
-            View oldLastClcikedButton = lastClcikedButton;
+            final View oldLastClcikedButton = lastClcikedButton;
             lastClcikedButton = v;
             if(isDrawerOpen == true && oldLastClcikedButton != v && !isAnimating){
 
                 lastClcikedButton = v;
                 buttonToBodyView.get(oldLastClcikedButton).setVisibility(GONE);
+                //((View)oldLastClcikedButton.getParent()).setBackgroundColor(Color.TRANSPARENT);
+
+                int colorFrom = Color.BLACK;
+                int colorTo = Color.TRANSPARENT;
+                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+                colorAnimation.setDuration(((long)2*animationTime/3)); // milliseconds
+                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animator) {
+                        ((View)oldLastClcikedButton.getParent()).setBackgroundColor((int) animator.getAnimatedValue());
+                    }
+
+                });
+                colorAnimation.start();
                 buttonToBodyView.get(lastClcikedButton).setVisibility(VISIBLE);
+                ((View)lastClcikedButton.getParent()).setBackgroundColor(Color.BLACK);
 
             } else if (isDrawerOpen == true && !isAnimating) {
                 isAnimating = true;
+                int colorFrom = Color.BLACK;
+                int colorTo = Color.TRANSPARENT;
+                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+                colorAnimation.setDuration(animationTime - 50); // milliseconds
+                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animator) {
+                        ((View)lastClcikedButton.getParent()).setBackgroundColor((int) animator.getAnimatedValue());
+                    }
+
+                });
+                colorAnimation.start();
                 ObjectAnimator.ofFloat(bodyLayout, "x", bodyLayout.getX(), bodyLayout.getX() + bodyLayout.getWidth())
-                        .setDuration(500)
+                        .setDuration(animationTime)
                         .start();
                 ObjectAnimator animator = ObjectAnimator.ofFloat(buttonScrollView, "x", buttonScrollView.getX(), bodyLayout.getWidth())
-                        .setDuration(500);
+                        .setDuration(animationTime);
                 animator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -157,14 +197,28 @@ public class MultiDrawerView extends LinearLayout {
 
             } else if(isDrawerOpen == false && !isAnimating) {
 
+                int colorFrom = Color.TRANSPARENT;
+                int colorTo = Color.BLACK;
+                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+                colorAnimation.setDuration(animationTime-50); // milliseconds
+                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animator) {
+                        ((View)lastClcikedButton.getParent()).setBackgroundColor((int) animator.getAnimatedValue());
+                    }
+
+                });
+                colorAnimation.start();
                 buttonToBodyView.get(oldLastClcikedButton).setVisibility(GONE);
                 buttonToBodyView.get(lastClcikedButton).setVisibility(VISIBLE);
+
                 isAnimating = true;
                 ObjectAnimator.ofFloat(bodyLayout, "x", bodyLayout.getX(), bodyLayout.getX() - bodyLayout.getWidth())
-                        .setDuration(500)
+                        .setDuration(animationTime)
                         .start();
                 ObjectAnimator animator = ObjectAnimator.ofFloat(buttonScrollView, "x", buttonScrollView.getX(), buttonScrollView.getX() - bodyLayout.getWidth())
-                        .setDuration(500);
+                        .setDuration(animationTime);
 
                 animator.addListener(new Animator.AnimatorListener() {
                     @Override

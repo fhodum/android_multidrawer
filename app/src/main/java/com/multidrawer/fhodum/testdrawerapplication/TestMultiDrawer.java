@@ -1,10 +1,9 @@
 package com.multidrawer.fhodum.testdrawerapplication;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.multidrawer.fhodum.multidrawer.Drawer;
@@ -34,8 +33,8 @@ public class TestMultiDrawer extends AppCompatActivity {
 
         drawerView.addDrawer(builder.createDrawer());
 
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+        button = LayoutInflater.from(this).inflate(R.layout.first_button, drawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body, drawerView , false);
 
         ((TextView)body.findViewById(R.id.text_view)).setText("Two");
 

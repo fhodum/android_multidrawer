@@ -9,8 +9,19 @@
         <attr name="buttonPaddingLeft" format="dimension"/>
         <attr name="buttonPaddingBottom" format="dimension"/>
         <attr name="buttonPaddingRight" format="dimension"/>
-        <attr name="buttonSelectBackgroundColor" format="color"/>
-        <attr name="animationOpenCloseTime" format="integer"/>
 
+        <!-- These two values default to wrap_content" -->
+        <attr name="buttonLayoutHeight" format="dimension"/>
+        <attr name="buttonLayoutWidth" format="dimension"/>
+
+        <attr name="buttonSelectBackgroundColor" format="color"/>
+        <attr name="buttonSelectionBackgroundDrawable" format="reference"/>
+        <attr name="animationOpenCloseTime" format="integer"/>
+        <attr name="deselectedButtonFadeTime" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomTheme">
+        <attr name="multiDrawerViewStyle" format="reference"/>
+    </declare-styleable>
+
 </resources>

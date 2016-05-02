@@ -6,6 +6,18 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="multiDrawerViewStyle">@style/MyAppMultiDrawerStyle</item>
     </style>
 
+
+    <style name="MyAppMultiDrawerStyle" parent="@style/MultiDrawerTheme.MultiDrawerViewStyle">
+        <item name="buttonLayoutHeight">@dimen/drawerButtonHeight</item>
+        <item name="buttonLayoutWidth">@dimen/drawerButtonWidth</item>
+        <item name="deselectedButtonFadeTime">300</item>
+        <item name="buttonPaddingTop" > 3dp</item>
+        <item name="buttonPaddingLeft" > 2dp</item>
+        <item name="buttonPaddingBottom"> 3dp</item>
+        <item name="buttonPaddingRight">0dp</item>
+    </style>
 </resources>

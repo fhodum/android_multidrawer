@@ -2,7 +2,6 @@ package com.multidrawer.fhodum.multidrawer;
 
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -10,13 +9,11 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
-
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -36,7 +33,16 @@ public class MultiDrawerView extends LinearLayout {
     private boolean isAnimating = false;
     private View lastClcikedButton = null;
 
-    private int animationTime = 500;
+    private int buttonSelectedBackgroundColor = Color.TRANSPARENT;
+    private int animationOpenCloseTime = 500;
+    private int deselectedButtonFadeTime = 500;
+
+    private float paddingLeft = 0;
+    private float paddingTop = 0;
+    private float paddingBottom = 0;
+    private float paddingRight = 0;
+    private float buttonLayoutHeight = LayoutParams.WRAP_CONTENT;
+    private float buttonLayoutWidth = LayoutParams.WRAP_CONTENT;
 
     private Map<View,View> buttonToBodyView = new HashMap<>();
 
@@ -49,20 +55,20 @@ public class MultiDrawerView extends LinearLayout {
     public MultiDrawerView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        init(context, attrs, 0, 0);
+        init(context, attrs, R.attr.multiDrawerViewStyle, 0);
     }
 
     public MultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(context, attrs, R.attr.multiDrawerViewStyle);
 
-        init(context, attrs, defStyleAttr, 0);
+        init(context, attrs, R.attr.multiDrawerViewStyle, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public MultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, R.attr.multiDrawerViewStyle, defStyleRes);
 
-        init(context, attrs, defStyleAttr, defStyleRes);
+        init(context, attrs, R.attr.multiDrawerViewStyle, defStyleRes);
     }
 
 
@@ -80,8 +86,42 @@ public class MultiDrawerView extends LinearLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MultiDrawerView, defStyleAttr, defStyleRes);
 
         //Get left or right from configuration set. For right now, assume right
-        int side = a.getInteger(R.styleable.MultiDrawerView_side,1);
-        
+        int side = a.getInteger(R.styleable.MultiDrawerView_side,0);
+        System.out.println("Side: " + side);
+
+
+        for (int i=0; i < a.getIndexCount(); i++){
+            int attr = a.getIndex(i);
+            if(attr == R.styleable.MultiDrawerView_buttonSelectBackgroundColor){
+                buttonSelectedBackgroundColor = a.getColor(R.styleable.MultiDrawerView_buttonSelectBackgroundColor, 0);
+            }else if(attr == R.styleable.MultiDrawerView_buttonLayoutWidth) {
+                buttonLayoutWidth = a.getDimension(R.styleable.MultiDrawerView_buttonLayoutWidth, LayoutParams.WRAP_CONTENT);
+
+            }else if(attr == R.styleable.MultiDrawerView_buttonLayoutHeight) {
+                buttonLayoutHeight = a.getDimension(R.styleable.MultiDrawerView_buttonLayoutHeight, LayoutParams.WRAP_CONTENT);
+
+            }else if(attr == R.styleable.MultiDrawerView_animationOpenCloseTime) {
+                animationOpenCloseTime = a.getInt(R.styleable.MultiDrawerView_animationOpenCloseTime, 500);
+
+            } else if(attr == R.styleable.MultiDrawerView_deselectedButtonFadeTime) {
+                deselectedButtonFadeTime = a.getInt(R.styleable.MultiDrawerView_deselectedButtonFadeTime, 500);
+
+            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingTop){
+                paddingTop = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingTop,0.0f);
+
+            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingLeft){
+                paddingLeft = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingLeft,0);
+
+            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingBottom){
+                paddingBottom = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingBottom,0);
+
+            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingRight){
+                paddingRight = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingRight,0);
+            }
+
+        }
+
+        Drawable backgroundDrawable = a.getDrawable(R.styleable.MultiDrawerView_buttonSelectionBackgroundDrawable);
 
         buttonScrollView = new ScrollView(context, attrs,defStyleAttr,defStyleRes) ;//requestLayout();
         buttonScrollView.setBackgroundColor(Color.TRANSPARENT);
@@ -104,11 +144,19 @@ public class MultiDrawerView extends LinearLayout {
         button.setOnClickListener(new RightSideButtonClickListener());
         LinearLayout buttonWrapper = new LinearLayout(getContext());
         buttonWrapper.setOrientation(VERTICAL);
-        buttonWrapper.addView(button);
+        buttonWrapper.setGravity(Gravity.CENTER);
+
+        buttonWrapper.setTag(drawer);
+
+        LinearLayout.LayoutParams buttonWrapperLayoutParams = new LayoutParams((int)(buttonLayoutWidth+0.5f), (int)(buttonLayoutHeight + 0.5f));
+        buttonWrapperLayoutParams.setMargins((int)(paddingLeft+0.5f),(int)(paddingTop+0.5f),(int)(paddingRight+0.5f),(int)(paddingBottom+0.5f));
+        buttonWrapperLayoutParams.gravity = Gravity.CENTER;
+        buttonWrapper.addView(button,buttonWrapperLayoutParams);
+
         LinearLayout.LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        float scale = getResources().getDisplayMetrics().density;
-        int dpAsPixels = (int) (5*scale + 0.5f);
-        buttonWrapper.setPadding(dpAsPixels,dpAsPixels,0,dpAsPixels);
+        layoutParams.gravity = Gravity.CENTER;
+//        layoutParams.setMargins((int)(paddingLeft+0.5f),(int)(paddingTop+0.5f),(int)(paddingRight+0.5f),(int)(paddingBottom+0.5f));
+//        buttonWrapper.setPadding((int)(paddingLeft+0.5f),(int)(paddingTop+0.5f),(int)(paddingRight+0.5f),(int)(paddingBottom+0.5f));
         buttonLinearLayout.addView(buttonWrapper, layoutParams);
 
         View body = drawer.getBody();
@@ -131,16 +179,21 @@ public class MultiDrawerView extends LinearLayout {
 
             final View oldLastClcikedButton = lastClcikedButton;
             lastClcikedButton = v;
-            if(isDrawerOpen == true && oldLastClcikedButton != v && !isAnimating){
+
+            if(isDrawerOpen == true && oldLastClcikedButton != v && !isAnimating){  //Changing open tabs
 
                 lastClcikedButton = v;
                 buttonToBodyView.get(oldLastClcikedButton).setVisibility(GONE);
+                Drawer.DrawerCallbacks notifyClosed = ((Drawer)((View)oldLastClcikedButton.getParent()).getTag()).getDrawerCallbackHandler();
+                if(notifyClosed  != null){
+                    notifyClosed .drawerOpened();
+                }
                 //((View)oldLastClcikedButton.getParent()).setBackgroundColor(Color.TRANSPARENT);
 
-                int colorFrom = Color.BLACK;
+                int colorFrom = buttonSelectedBackgroundColor;
                 int colorTo = Color.TRANSPARENT;
                 ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-                colorAnimation.setDuration(((long)2*animationTime/3)); // milliseconds
+                colorAnimation.setDuration(deselectedButtonFadeTime); // milliseconds
                 colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
                     @Override
@@ -149,16 +202,41 @@ public class MultiDrawerView extends LinearLayout {
                     }
 
                 });
+                colorAnimation.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        ((View)oldLastClcikedButton.getParent()).setBackground(null);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
                 colorAnimation.start();
                 buttonToBodyView.get(lastClcikedButton).setVisibility(VISIBLE);
-                ((View)lastClcikedButton.getParent()).setBackgroundColor(Color.BLACK);
+                Drawer.DrawerCallbacks notifyOpen = ((Drawer)((View)lastClcikedButton.getParent()).getTag()).getDrawerCallbackHandler();
+                if(notifyOpen != null){
+                    notifyOpen.drawerOpened();
+                }
+                ((View)lastClcikedButton.getParent()).setBackgroundColor(buttonSelectedBackgroundColor);
 
-            } else if (isDrawerOpen == true && !isAnimating) {
+            } else if (isDrawerOpen == true && !isAnimating) {  //Closing drawer
                 isAnimating = true;
-                int colorFrom = Color.BLACK;
+                int colorFrom = buttonSelectedBackgroundColor;
                 int colorTo = Color.TRANSPARENT;
                 ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-                colorAnimation.setDuration(animationTime - 50); // milliseconds
+                colorAnimation.setDuration(animationOpenCloseTime - 50); // milliseconds
                 colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
                     @Override
@@ -169,10 +247,10 @@ public class MultiDrawerView extends LinearLayout {
                 });
                 colorAnimation.start();
                 ObjectAnimator.ofFloat(bodyLayout, "x", bodyLayout.getX(), bodyLayout.getX() + bodyLayout.getWidth())
-                        .setDuration(animationTime)
+                        .setDuration(animationOpenCloseTime)
                         .start();
                 ObjectAnimator animator = ObjectAnimator.ofFloat(buttonScrollView, "x", buttonScrollView.getX(), bodyLayout.getWidth())
-                        .setDuration(animationTime);
+                        .setDuration(animationOpenCloseTime);
                 animator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -183,6 +261,11 @@ public class MultiDrawerView extends LinearLayout {
                     public void onAnimationEnd(Animator animation) {
                         isDrawerOpen = false;
                         isAnimating = false;
+                        ((View)oldLastClcikedButton.getParent()).setBackground(null);
+                        Drawer.DrawerCallbacks notifyClosed = ((Drawer)((View)lastClcikedButton.getParent()).getTag()).getDrawerCallbackHandler();
+                        if(notifyClosed != null){
+                            notifyClosed.drawerClosed();
+                        }
                     }
 
                     @Override
@@ -197,12 +280,12 @@ public class MultiDrawerView extends LinearLayout {
                 });
                 animator.start();
 
-            } else if(isDrawerOpen == false && !isAnimating) {
+            } else if(isDrawerOpen == false && !isAnimating) {  //Opening Drawer
 
                 int colorFrom = Color.TRANSPARENT;
-                int colorTo = Color.BLACK;
+                int colorTo = buttonSelectedBackgroundColor;
                 ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-                colorAnimation.setDuration(animationTime-50); // milliseconds
+                colorAnimation.setDuration(animationOpenCloseTime -50); // milliseconds
                 colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
                     @Override
@@ -213,14 +296,18 @@ public class MultiDrawerView extends LinearLayout {
                 });
                 colorAnimation.start();
                 buttonToBodyView.get(oldLastClcikedButton).setVisibility(GONE);
-                buttonToBodyView.get(lastClcikedButton).setVisibility(VISIBLE);
 
+                buttonToBodyView.get(lastClcikedButton).setVisibility(VISIBLE);
+                Drawer.DrawerCallbacks notifyOpen = ((Drawer)((View)lastClcikedButton.getParent()).getTag()).getDrawerCallbackHandler();
+                if(notifyOpen != null){
+                    notifyOpen.drawerOpened();
+                }
                 isAnimating = true;
                 ObjectAnimator.ofFloat(bodyLayout, "x", bodyLayout.getX(), bodyLayout.getX() - bodyLayout.getWidth())
-                        .setDuration(animationTime)
+                        .setDuration(animationOpenCloseTime)
                         .start();
                 ObjectAnimator animator = ObjectAnimator.ofFloat(buttonScrollView, "x", buttonScrollView.getX(), buttonScrollView.getX() - bodyLayout.getWidth())
-                        .setDuration(animationTime);
+                        .setDuration(animationOpenCloseTime);
 
                 animator.addListener(new Animator.AnimatorListener() {
                     @Override

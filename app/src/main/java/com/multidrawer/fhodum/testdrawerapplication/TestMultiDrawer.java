@@ -20,9 +20,9 @@ public class TestMultiDrawer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_multi_drawer);
-        MultiDrawerView drawerView = (MultiDrawerView)findViewById(R.id.multiDrawer);
-        View button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-        View body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+        MultiDrawerView leftDrawerView = (MultiDrawerView)findViewById(R.id.multiDrawerLeft);
+        View button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
+        View body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 
         ((TextView)body.findViewById(R.id.text_view)).setText("One");
 
@@ -31,10 +31,10 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setButton(button);
 
 
-        drawerView.addDrawer(builder.createDrawer());
+        leftDrawerView.addDrawer(builder.createDrawer());
 
-        button = LayoutInflater.from(this).inflate(R.layout.first_button, drawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body, drawerView , false);
+        button = LayoutInflater.from(this).inflate(R.layout.first_button, leftDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body, leftDrawerView , false);
 
         ((TextView)body.findViewById(R.id.text_view)).setText("Two");
 
@@ -42,12 +42,12 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setBody(body);
         builder.setButton(button);
 
-        drawerView.addDrawer(builder.createDrawer());
+        leftDrawerView.addDrawer(builder.createDrawer());
 
 
 
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 
         ((TextView)body.findViewById(R.id.text_view)).setText("Three");
 
@@ -55,10 +55,10 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setBody(body);
         builder.setButton(button);
 
-        drawerView.addDrawer(builder.createDrawer());
+        leftDrawerView.addDrawer(builder.createDrawer());
 
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 
         ((TextView)body.findViewById(R.id.text_view)).setText("Four");
 
@@ -66,10 +66,10 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setBody(body);
         builder.setButton(button);
 
-        drawerView.addDrawer(builder.createDrawer());
+        leftDrawerView.addDrawer(builder.createDrawer());
 
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 
         ((TextView)body.findViewById(R.id.text_view)).setText("Five");
 
@@ -77,10 +77,10 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setBody(body);
         builder.setButton(button);
 
-        drawerView.addDrawer(builder.createDrawer());
+        leftDrawerView.addDrawer(builder.createDrawer());
 
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 
         ((TextView)body.findViewById(R.id.text_view)).setText("Six");
 
@@ -88,10 +88,10 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setBody(body);
         builder.setButton(button);
 
-        drawerView.addDrawer(builder.createDrawer());
+        leftDrawerView.addDrawer(builder.createDrawer());
 
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 
         ((TextView)body.findViewById(R.id.text_view)).setText("Seven");
 
@@ -99,10 +99,97 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setBody(body);
         builder.setButton(button);
 
-        drawerView.addDrawer(builder.createDrawer());
+        leftDrawerView.addDrawer(builder.createDrawer());
+
+
+
+
+
+        //Right
+
+        MultiDrawerView rightDrawerView = (MultiDrawerView)findViewById(R.id.multiDrawerRight);
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,rightDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,rightDrawerView , false);
+
+        ((TextView)body.findViewById(R.id.text_view)).setText("One");
+
+        builder = new Drawer.Builder();
+        builder.setBody(body);
+        builder.setButton(button);
+
+
+        rightDrawerView.addDrawer(builder.createDrawer());
+
+        button = LayoutInflater.from(this).inflate(R.layout.first_button, rightDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body, rightDrawerView , false);
+
+        ((TextView)body.findViewById(R.id.text_view)).setText("Two");
+
+        builder = new Drawer.Builder();
+        builder.setBody(body);
+        builder.setButton(button);
+
+        rightDrawerView.addDrawer(builder.createDrawer());
+
+
+
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,rightDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,rightDrawerView , false);
+
+        ((TextView)body.findViewById(R.id.text_view)).setText("Three");
+
+        builder = new Drawer.Builder();
+        builder.setBody(body);
+        builder.setButton(button);
+
+        rightDrawerView.addDrawer(builder.createDrawer());
+
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,rightDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,rightDrawerView , false);
+
+        ((TextView)body.findViewById(R.id.text_view)).setText("Four");
+
+        builder = new Drawer.Builder();
+        builder.setBody(body);
+        builder.setButton(button);
+
+        rightDrawerView.addDrawer(builder.createDrawer());
+
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,rightDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,rightDrawerView , false);
+
+        ((TextView)body.findViewById(R.id.text_view)).setText("Five");
+
+        builder = new Drawer.Builder();
+        builder.setBody(body);
+        builder.setButton(button);
+
+        rightDrawerView.addDrawer(builder.createDrawer());
+
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,rightDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,rightDrawerView , false);
+
+        ((TextView)body.findViewById(R.id.text_view)).setText("Six");
+
+        builder = new Drawer.Builder();
+        builder.setBody(body);
+        builder.setButton(button);
+
+        rightDrawerView.addDrawer(builder.createDrawer());
+
+        button = LayoutInflater.from(this).inflate(R.layout.first_button,rightDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.first_body,rightDrawerView , false);
+
+        ((TextView)body.findViewById(R.id.text_view)).setText("Seven");
+
+        builder = new Drawer.Builder();
+        builder.setBody(body);
+        builder.setButton(button);
+
+        rightDrawerView.addDrawer(builder.createDrawer());
 //
-//        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-//        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+//        button = LayoutInflater.from(this).inflate(R.layout.first_button,rightDrawerView , false);
+//        body = LayoutInflater.from(this).inflate(R.layout.first_body,rightDrawerView , false);
 //
 //        ((TextView)body.findViewById(R.id.text_view)).setText("Eight");
 //
@@ -110,10 +197,10 @@ public class TestMultiDrawer extends AppCompatActivity {
 //        builder.setBody(body);
 //        builder.setButton(button);
 //
-//        drawerView.addDrawer(builder.createDrawer());
+//        leftDrawerView.addDrawer(builder.createDrawer());
 //
-//        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-//        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+//        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
+//        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 //
 //        ((TextView)body.findViewById(R.id.text_view)).setText("Nine");
 //
@@ -121,10 +208,10 @@ public class TestMultiDrawer extends AppCompatActivity {
 //        builder.setBody(body);
 //        builder.setButton(button);
 //
-//        drawerView.addDrawer(builder.createDrawer());
+//        leftDrawerView.addDrawer(builder.createDrawer());
 //
-//        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-//        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+//        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
+//        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 //
 //        ((TextView)body.findViewById(R.id.text_view)).setText("Ten");
 //
@@ -132,10 +219,10 @@ public class TestMultiDrawer extends AppCompatActivity {
 //        builder.setBody(body);
 //        builder.setButton(button);
 //
-//        drawerView.addDrawer(builder.createDrawer());
+//        leftDrawerView.addDrawer(builder.createDrawer());
 //
-//        button = LayoutInflater.from(this).inflate(R.layout.first_button,drawerView , false);
-//        body = LayoutInflater.from(this).inflate(R.layout.first_body,drawerView , false);
+//        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
+//        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 //
 //        ((TextView)body.findViewById(R.id.text_view)).setText("Eleven");
 //
@@ -143,7 +230,7 @@ public class TestMultiDrawer extends AppCompatActivity {
 //        builder.setBody(body);
 //        builder.setButton(button);
 //
-//        drawerView.addDrawer(builder.createDrawer());
+//        leftDrawerView.addDrawer(builder.createDrawer());
 
     }
 }

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#607D8B</color>
     <color name="colorPrimaryDark">#455A64</color>
-    <color name="colorAccent">#03A9F4</color>
+    <color name="colorAccent">@color/md_cyan_A100</color>
     <color name="colorLightPrimary">#CFD8DC</color>
     <color name="buttonBackgroundColor">#B6B6B6</color>
     <!--reds-->

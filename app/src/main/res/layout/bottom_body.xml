@@ -8,11 +8,10 @@
     android:paddingRight="@dimen/drawer_horizontal_margin"
     android:paddingTop="@dimen/drawer_vertical_margin">
 
-    <android.support.v4.view.ViewPager
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </android.support.v4.view.ViewPager>
-
+        android:layout_height="match_parent"
+        android:id="@+id/text_view"
+        android:text="Bottom Body"/>
 </LinearLayout>

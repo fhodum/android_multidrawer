@@ -20,8 +20,29 @@
         <attr name="deselectedButtonFadeTime" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="TopBottomMultiDrawerView">
+        <attr name="top_bottom_side" format="enum">
+            <enum name="bottom" value="0"/>
+            <enum name="top" value="1"/>
+        </attr>
+        <attr name="top_bottom_buttonPaddingTop" format="dimension"/>
+        <attr name="top_bottom_buttonPaddingLeft" format="dimension"/>
+        <attr name="top_bottom_buttonPaddingBottom" format="dimension"/>
+        <attr name="top_bottom_buttonPaddingRight" format="dimension"/>
+
+        <!-- These two values default to wrap_content" -->
+        <attr name="top_bottom_buttonLayoutHeight" format="dimension"/>
+        <attr name="top_bottom_buttonLayoutWidth" format="dimension"/>
+
+        <attr name="top_bottom_buttonSelectBackgroundColor" format="color"/>
+        <attr name="top_bottom_buttonSelectionBackgroundDrawable" format="reference"/>
+        <attr name="top_bottom_animationOpenCloseTime" format="integer"/>
+        <attr name="top_bottom_deselectedButtonFadeTime" format="integer"/>
+    </declare-styleable>
+
     <declare-styleable name="CustomTheme">
         <attr name="multiDrawerViewStyle" format="reference"/>
+        <attr name="topBottomMultiDrawerViewStyle" format="reference"/>
     </declare-styleable>
 
 </resources>

@@ -16,18 +16,18 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-public class MultiDrawerView extends RelativeLayout {
+public class TopBottomMultiDrawerView extends RelativeLayout {
 
-    private ScrollView buttonScrollView;
+    private HorizontalScrollView buttonScrollView;
     private LinearLayout buttonLinearLayout;
     private LinearLayout bodyLayout;
     private Vector<Drawer> drawers = null;
@@ -50,34 +50,34 @@ public class MultiDrawerView extends RelativeLayout {
     private float buttonLayoutHeight = LayoutParams.WRAP_CONTENT;
     private float buttonLayoutWidth = LayoutParams.WRAP_CONTENT;
 
-    private static final int RIGHT = 1;
-    private static final int LEFT = 0;
+    private static final int TOP = 1;
+    private static final int BOTTOM = 0;
 
     private Map<View,View> buttonToBodyView = new HashMap<>();
 
 
-    public MultiDrawerView(Context context) {
+    public TopBottomMultiDrawerView(Context context) {
         super(context);
         init(context, null, 0, 0);
     }
 
-    public MultiDrawerView(Context context, AttributeSet attrs) {
+    public TopBottomMultiDrawerView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        init(context, attrs, R.attr.multiDrawerViewStyle, 0);
+        init(context, attrs, R.attr.topBottomMultiDrawerViewStyle, 0);
     }
 
-    public MultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, R.attr.multiDrawerViewStyle);
+    public TopBottomMultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, R.attr.topBottomMultiDrawerViewStyle);
 
-        init(context, attrs, R.attr.multiDrawerViewStyle, 0);
+        init(context, attrs, R.attr.topBottomMultiDrawerViewStyle, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public MultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, R.attr.multiDrawerViewStyle, defStyleRes);
+    public TopBottomMultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, R.attr.topBottomMultiDrawerViewStyle, defStyleRes);
 
-        init(context, attrs, R.attr.multiDrawerViewStyle, defStyleRes);
+        init(context, attrs, R.attr.topBottomMultiDrawerViewStyle, defStyleRes);
     }
 
 
@@ -92,70 +92,73 @@ public class MultiDrawerView extends RelativeLayout {
         //setOrientation(LinearLayout.HORIZONTAL);
         //setGravity(Gravity.RIGHT);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MultiDrawerView, defStyleAttr, defStyleRes);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TopBottomMultiDrawerView, defStyleAttr, defStyleRes);
 
         //Get left or right from configuration set. For right now, assume right
-        side  = a.getInteger(R.styleable.MultiDrawerView_side,0);
+        side  = a.getInteger(R.styleable.TopBottomMultiDrawerView_top_bottom_side,0);
         System.out.println("Side: " + side);
 
 
         for (int i=0; i < a.getIndexCount(); i++){
             int attr = a.getIndex(i);
-            if(attr == R.styleable.MultiDrawerView_buttonSelectBackgroundColor){
-                buttonSelectedBackgroundColor = a.getColor(R.styleable.MultiDrawerView_buttonSelectBackgroundColor, 0);
+            if(attr == R.styleable.TopBottomMultiDrawerView_top_bottom_buttonSelectBackgroundColor){
+                buttonSelectedBackgroundColor = a.getColor(R.styleable.TopBottomMultiDrawerView_top_bottom_buttonSelectBackgroundColor, 0);
             }else if(attr == R.styleable.MultiDrawerView_buttonLayoutWidth) {
-                buttonLayoutWidth = a.getDimension(R.styleable.MultiDrawerView_buttonLayoutWidth, LayoutParams.WRAP_CONTENT);
+                buttonLayoutWidth = a.getDimension(R.styleable.TopBottomMultiDrawerView_top_bottom_buttonLayoutWidth, LayoutParams.WRAP_CONTENT);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonLayoutHeight) {
-                buttonLayoutHeight = a.getDimension(R.styleable.MultiDrawerView_buttonLayoutHeight, LayoutParams.WRAP_CONTENT);
+            }else if(attr == R.styleable.TopBottomMultiDrawerView_top_bottom_buttonLayoutHeight) {
+                buttonLayoutHeight = a.getDimension(R.styleable.TopBottomMultiDrawerView_top_bottom_buttonLayoutHeight, LayoutParams.WRAP_CONTENT);
 
-            }else if(attr == R.styleable.MultiDrawerView_animationOpenCloseTime) {
-                animationOpenCloseTime = a.getInt(R.styleable.MultiDrawerView_animationOpenCloseTime, 500);
+            }else if(attr == R.styleable.TopBottomMultiDrawerView_top_bottom_animationOpenCloseTime) {
+                animationOpenCloseTime = a.getInt(R.styleable.TopBottomMultiDrawerView_top_bottom_animationOpenCloseTime, 500);
 
-            } else if(attr == R.styleable.MultiDrawerView_deselectedButtonFadeTime) {
-                deselectedButtonFadeTime = a.getInt(R.styleable.MultiDrawerView_deselectedButtonFadeTime, 500);
+            } else if(attr == R.styleable.TopBottomMultiDrawerView_top_bottom_deselectedButtonFadeTime) {
+                deselectedButtonFadeTime = a.getInt(R.styleable.TopBottomMultiDrawerView_top_bottom_deselectedButtonFadeTime, 500);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingTop){
-                paddingTop = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingTop,0.0f);
+            }else if(attr == R.styleable.TopBottomMultiDrawerView_top_bottom_buttonPaddingTop){
+                paddingTop = a.getDimension(R.styleable.TopBottomMultiDrawerView_top_bottom_buttonPaddingTop,0.0f);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingLeft){
-                paddingLeft = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingLeft,0);
+            }else if(attr == R.styleable.TopBottomMultiDrawerView_top_bottom_buttonPaddingLeft){
+                paddingLeft = a.getDimension(R.styleable.TopBottomMultiDrawerView_top_bottom_buttonPaddingLeft,0);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingBottom){
-                paddingBottom = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingBottom,0);
+            }else if(attr == R.styleable.TopBottomMultiDrawerView_top_bottom_buttonPaddingBottom){
+                paddingBottom = a.getDimension(R.styleable.TopBottomMultiDrawerView_top_bottom_buttonPaddingBottom,0);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingRight){
-                paddingRight = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingRight,0);
+            }else if(attr == R.styleable.TopBottomMultiDrawerView_top_bottom_buttonPaddingRight){
+                paddingRight = a.getDimension(R.styleable.TopBottomMultiDrawerView_top_bottom_buttonPaddingRight,0);
             }
 
         }
 
 //        Drawable backgroundDrawable = a.getDrawable(R.styleable.MultiDrawerView_buttonSelectionBackgroundDrawable);
 
-        buttonScrollView = new VerticalOnlyCustomScrollView(context, attrs);//requestLayout();
+        buttonScrollView = new HorizontalScrollView(context, attrs);//requestLayout();
         buttonScrollView.setId(View.generateViewId());
         buttonScrollView.setBackgroundColor(Color.TRANSPARENT);
         buttonScrollView.setFadingEdgeLength(60);
         buttonScrollView.setVerticalFadingEdgeEnabled(true);
+//
+
 
 
         buttonLinearLayout = new LinearLayout(context, attrs,defStyleAttr,defStyleRes);
-        buttonLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        buttonLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
         buttonScrollView.addView(buttonLinearLayout, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
         bodyLayout  = new LinearLayout(context, attrs,defStyleAttr,defStyleRes);
 
-        if(side == RIGHT) {
-            LayoutParams layoutParams =new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        if(side == BOTTOM) {
+            LayoutParams layoutParams =new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL|RelativeLayout.ALIGN_PARENT_TOP);
             addView(buttonScrollView, layoutParams);
 
             layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            layoutParams.addRule(RelativeLayout.RIGHT_OF, buttonScrollView.getId());
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            layoutParams.addRule(RelativeLayout.BELOW, buttonScrollView.getId());
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             bodyLayout.setLayoutParams(layoutParams);
             addView(bodyLayout);
-        }else if (side == LEFT) {
+        }else if (side == TOP) {
             LayoutParams layoutParams =new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             addView(buttonScrollView, layoutParams);
@@ -172,13 +175,13 @@ public class MultiDrawerView extends RelativeLayout {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                    MultiDrawerView.this.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    if(side == RIGHT){
-                        bodyLayout.setX(buttonScrollView.getWidth() +  bodyLayout.getWidth());
-                        buttonScrollView.setX( bodyLayout.getWidth());
+                    TopBottomMultiDrawerView.this.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    if(side == BOTTOM){
+                        bodyLayout.setY(getHeight());
+                        buttonScrollView.setY( getHeight() - buttonScrollView.getHeight());
                     }else {
-                        bodyLayout.setX(-buttonScrollView.getX());
-                        buttonScrollView.setX(0);
+                        bodyLayout.setY(-buttonScrollView.getY());
+                        buttonScrollView.setY(0);
                     }
                 }
             });
@@ -210,6 +213,7 @@ public class MultiDrawerView extends RelativeLayout {
         buttonWrapperLayoutParams.setMargins((int)(paddingLeft+0.5f),(int)(paddingTop+0.5f),(int)(paddingRight+0.5f),(int)(paddingBottom+0.5f));
         buttonWrapperLayoutParams.gravity = Gravity.CENTER;
         buttonWrapper.addView(button,buttonWrapperLayoutParams);
+
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
@@ -255,12 +259,12 @@ public class MultiDrawerView extends RelativeLayout {
             notifyOpen.drawerOpened();
         }
         isAnimating = true;
-        if(side == RIGHT) {
+        if(side == BOTTOM) {
 
-            ObjectAnimator.ofFloat(bodyLayout, "x", bodyLayout.getX(), buttonScrollView.getWidth())
+            ObjectAnimator.ofFloat(bodyLayout, "y", bodyLayout.getY(), buttonScrollView.getHeight())
                     .setDuration(animationOpenCloseTime)
                     .start();
-            ObjectAnimator animator = ObjectAnimator.ofFloat(buttonScrollView, "x", buttonScrollView.getX(), buttonScrollView.getX() - bodyLayout.getWidth())
+            ObjectAnimator animator = ObjectAnimator.ofFloat(buttonScrollView, "y", buttonScrollView.getY(), 0)
                     .setDuration(animationOpenCloseTime);
 
             animator.addListener(new Animator.AnimatorListener() {
@@ -334,12 +338,12 @@ public class MultiDrawerView extends RelativeLayout {
         });
         colorAnimation.start();
 
-        if(side == RIGHT) {
+        if(side == BOTTOM) {
 
-            ObjectAnimator.ofFloat(bodyLayout, "x", bodyLayout.getX(), bodyLayout.getX() + bodyLayout.getWidth())
+            ObjectAnimator.ofFloat(bodyLayout, "y", bodyLayout.getY(), bodyLayout.getY() + bodyLayout.getHeight())
                     .setDuration(animationOpenCloseTime)
                     .start();
-            ObjectAnimator animator = ObjectAnimator.ofFloat(buttonScrollView, "x", buttonScrollView.getX(), bodyLayout.getWidth())
+            ObjectAnimator animator = ObjectAnimator.ofFloat(buttonScrollView, "y", buttonScrollView.getY(), bodyLayout.getHeight())
                     .setDuration(animationOpenCloseTime);
             animator.addListener(new Animator.AnimatorListener() {
                 @Override
@@ -432,9 +436,9 @@ public class MultiDrawerView extends RelativeLayout {
                     && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
 
                 lastClickedButton = myView.get();
-                if(!isDrawerOpen && side==RIGHT){
+                if(!isDrawerOpen && side==BOTTOM){
                     openDrawer();
-                }else if(isDrawerOpen && side == LEFT){
+                }else if(isDrawerOpen && side == TOP){
                     closeDrawer();
                     bodyLayout.removeAllViews();
                     bodyLayout.addView(buttonToBodyView.get(lastClickedButton));
@@ -446,9 +450,9 @@ public class MultiDrawerView extends RelativeLayout {
             } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                 lastClickedButton = myView.get();
-                if(!isDrawerOpen && side==LEFT){
+                if(!isDrawerOpen && side==TOP){
                     openDrawer();
-                }else if(isDrawerOpen && side == RIGHT){
+                }else if(isDrawerOpen && side == BOTTOM){
                     closeDrawer();
                     bodyLayout.removeAllViews();
                     bodyLayout.addView(buttonToBodyView.get(lastClickedButton));

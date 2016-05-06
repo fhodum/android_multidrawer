@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="multiDrawerViewStyle">@style/MultiDrawerTheme.MultiDrawerViewStyle</item>
+        <item name="topBottomMultiDrawerViewStyle">@style/MultiDrawerTheme.TopBottomMultiDrawerViewStyle</item>
     </style>
 
 
@@ -20,6 +21,19 @@
         <item name="animationOpenCloseTime">500</item>
         <item name="deselectedButtonFadeTime">500</item>
         <item name="side">right</item>
+
+
+    </style>
+
+    <style name="MultiDrawerTheme.TopBottomMultiDrawerViewStyle">
+        <item name="buttonPaddingTop" > 5dp</item>
+        <item name="buttonPaddingLeft" > 4dp</item>
+        <item name="buttonPaddingBottom"> 5dp</item>
+        <item name="buttonPaddingRight">0dp</item>
+        <item name="buttonSelectBackgroundColor">@color/colorAccent</item>
+        <item name="animationOpenCloseTime">500</item>
+        <item name="deselectedButtonFadeTime">500</item>
+        <item name="top_bottom_side">bottom</item>
 
 
     </style>

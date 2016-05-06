@@ -16,7 +16,7 @@
         <item name="buttonLayoutWidth">@dimen/drawerButtonWidth</item>
         <item name="deselectedButtonFadeTime">300</item>
         <item name="buttonPaddingTop" > 3dp</item>
-        <item name="buttonPaddingLeft" > 0dp</item>
+        <item name="buttonPaddingLeft" > 2dp</item>
         <item name="buttonPaddingBottom"> 3dp</item>
         <item name="buttonPaddingRight">2dp</item>
         <item name="side">left</item>
@@ -29,7 +29,18 @@
         <item name="buttonPaddingTop" > 3dp</item>
         <item name="buttonPaddingLeft" > 2dp</item>
         <item name="buttonPaddingBottom"> 3dp</item>
-        <item name="buttonPaddingRight">0dp</item>
+        <item name="buttonPaddingRight">2dp</item>
         <item name="side">right</item>
+    </style>
+
+    <style name="MyAppMultiDrawerStyleBottom" parent="@style/MultiDrawerTheme.TopBottomMultiDrawerViewStyle">
+        <item name="top_bottom_buttonLayoutHeight">@dimen/drawerButtonWidth</item>
+        <item name="top_bottom_buttonLayoutWidth">@dimen/drawerButtonHeight</item>
+        <item name="top_bottom_deselectedButtonFadeTime">300</item>
+        <item name="top_bottom_buttonPaddingTop" > 3dp</item>
+        <item name="top_bottom_buttonPaddingLeft" > 2dp</item>
+        <item name="top_bottom_buttonPaddingBottom"> 0dp</item>
+        <item name="top_bottom_buttonPaddingRight">2dp</item>
+        <item name="top_bottom_side">bottom</item>
     </style>
 </resources>

@@ -11,36 +11,47 @@
     </style>
 
 
-    <style name="MyAppMultiDrawerStyleLeft" parent="@style/MultiDrawerTheme.MultiDrawerViewStyle">
-        <item name="buttonLayoutHeight">@dimen/drawerButtonHeight</item>
-        <item name="buttonLayoutWidth">@dimen/drawerButtonWidth</item>
-        <item name="deselectedButtonFadeTime">300</item>
-        <item name="buttonPaddingTop" > 3dp</item>
-        <item name="buttonPaddingLeft" > 2dp</item>
-        <item name="buttonPaddingBottom"> 3dp</item>
-        <item name="buttonPaddingRight">2dp</item>
-        <item name="side">left</item>
+    <style name="MyAppMultiDrawerStyleLeft" parent="@style/MultiDrawerTheme.LeftRightMultiDrawerViewStyle">
+        <item name="multiDrawerButtonLayoutHeight">@dimen/drawerButtonHeight</item>
+        <item name="multiDrawerButtonLayoutWidth">@dimen/drawerButtonWidth</item>
+        <item name="multiDrawerDeselectedButtonFadeTime">300</item>
+        <item name="multiDrawerButtonPaddingTop" > 3dp</item>
+        <item name="multiDrawerButtonPaddingLeft" > 0dp</item>
+        <item name="multiDrawerButtonPaddingBottom"> 3dp</item>
+        <item name="multiDrawerButtonPaddingRight">2dp</item>
+        <item name="leftRightDrawerSide">left</item>
     </style>
 
-    <style name="MyAppMultiDrawerStyleRight" parent="@style/MultiDrawerTheme.MultiDrawerViewStyle">
-        <item name="buttonLayoutHeight">@dimen/drawerButtonHeight</item>
-        <item name="buttonLayoutWidth">@dimen/drawerButtonWidth</item>
-        <item name="deselectedButtonFadeTime">300</item>
-        <item name="buttonPaddingTop" > 3dp</item>
-        <item name="buttonPaddingLeft" > 2dp</item>
-        <item name="buttonPaddingBottom"> 3dp</item>
-        <item name="buttonPaddingRight">2dp</item>
-        <item name="side">right</item>
+    <style name="MyAppMultiDrawerStyleRight" parent="@style/MultiDrawerTheme.LeftRightMultiDrawerViewStyle">
+        <item name="multiDrawerButtonLayoutHeight">@dimen/drawerButtonHeight</item>
+        <item name="multiDrawerButtonLayoutWidth">@dimen/drawerButtonWidth</item>
+        <item name="multiDrawerDeselectedButtonFadeTime">300</item>
+        <item name="multiDrawerButtonPaddingTop" > 3dp</item>
+        <item name="multiDrawerButtonPaddingLeft" > 2dp</item>
+        <item name="multiDrawerButtonPaddingBottom"> 3dp</item>
+        <item name="multiDrawerButtonPaddingRight">0dp</item>
+        <item name="leftRightDrawerSide">right</item>
     </style>
 
     <style name="MyAppMultiDrawerStyleBottom" parent="@style/MultiDrawerTheme.TopBottomMultiDrawerViewStyle">
-        <item name="top_bottom_buttonLayoutHeight">@dimen/drawerButtonWidth</item>
-        <item name="top_bottom_buttonLayoutWidth">@dimen/drawerButtonHeight</item>
-        <item name="top_bottom_deselectedButtonFadeTime">300</item>
-        <item name="top_bottom_buttonPaddingTop" > 3dp</item>
-        <item name="top_bottom_buttonPaddingLeft" > 2dp</item>
-        <item name="top_bottom_buttonPaddingBottom"> 0dp</item>
-        <item name="top_bottom_buttonPaddingRight">2dp</item>
-        <item name="top_bottom_side">bottom</item>
+        <item name="multiDrawerButtonLayoutHeight">@dimen/drawerButtonWidth</item>
+        <item name="multiDrawerButtonLayoutWidth">@dimen/drawerButtonHeight</item>
+        <item name="multiDrawerDeselectedButtonFadeTime">300</item>
+        <item name="multiDrawerButtonPaddingTop" > 3dp</item>
+        <item name="multiDrawerButtonPaddingLeft" > 2dp</item>
+        <item name="multiDrawerButtonPaddingBottom"> 0dp</item>
+        <item name="multiDrawerButtonPaddingRight">2dp</item>
+    </style>
+
+    <style name="MyAppMultiDrawerStyleTop" parent="@style/MultiDrawerTheme.TopBottomMultiDrawerViewStyle">
+        <item name="multiDrawerButtonLayoutHeight">@dimen/drawerButtonWidth</item>
+        <item name="multiDrawerButtonLayoutWidth">@dimen/drawerButtonHeight</item>
+        <item name="multiDrawerDeselectedButtonFadeTime">300</item>
+        <item name="multiDrawerButtonPaddingTop" > 3dp</item>
+        <item name="multiDrawerButtonPaddingLeft" > 2dp</item>
+        <item name="multiDrawerButtonPaddingBottom"> 0dp</item>
+        <item name="multiDrawerButtonPaddingRight">2dp</item>
+
+        <item name="topBottomDrawerSide">top</item>
     </style>
 </resources>

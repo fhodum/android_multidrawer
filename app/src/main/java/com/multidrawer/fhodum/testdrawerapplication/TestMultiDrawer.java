@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.multidrawer.fhodum.multidrawer.Drawer;
-import com.multidrawer.fhodum.multidrawer.MultiDrawerView;
+import com.multidrawer.fhodum.multidrawer.LeftRightMultiDrawerView;
 import com.multidrawer.fhodum.multidrawer.TopBottomMultiDrawerView;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 
 public class TestMultiDrawer extends AppCompatActivity {
@@ -27,7 +27,7 @@ public class TestMultiDrawer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_multi_drawer);
-        MultiDrawerView leftDrawerView = (MultiDrawerView)findViewById(R.id.multiDrawerLeft);
+        LeftRightMultiDrawerView leftDrawerView = (LeftRightMultiDrawerView)findViewById(R.id.multiDrawerLeft);
         View button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
         View body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 
@@ -121,7 +121,7 @@ public class TestMultiDrawer extends AppCompatActivity {
 
         //Right
 
-        MultiDrawerView rightDrawerView = (MultiDrawerView)findViewById(R.id.multiDrawerRight);
+        LeftRightMultiDrawerView rightDrawerView = (LeftRightMultiDrawerView)findViewById(R.id.multiDrawerRight);
         button = LayoutInflater.from(this).inflate(R.layout.first_button,rightDrawerView , false);
         body = LayoutInflater.from(this).inflate(R.layout.first_body,rightDrawerView , false);
 
@@ -206,10 +206,11 @@ public class TestMultiDrawer extends AppCompatActivity {
 
         TopBottomMultiDrawerView bottomDrawerView = (TopBottomMultiDrawerView)findViewById(R.id.multiDrawerBottom);
         //Bottom
-        button = LayoutInflater.from(this).inflate(R.layout.bottom_button,rightDrawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.bottom_body,rightDrawerView , false);
+        button = LayoutInflater.from(this).inflate(R.layout.bottom_button,bottomDrawerView , false);
+        body = LayoutInflater.from(this).inflate(R.layout.bottom_body,bottomDrawerView, false);
 
-        ((TextView)body.findViewById(R.id.text_view)).setText("Bottom Body");
+        ViewPager vp = (ViewPager)body.findViewById(R.id.view_pager);
+        vp.setAdapter(new MyAdapter());
 
         builder = new Drawer.Builder();
         builder.setBody(body);
@@ -267,24 +268,28 @@ public class TestMultiDrawer extends AppCompatActivity {
 
 
 
-    public class ViewGroupPagerAdapter extends PagerAdapter {
-        public ViewGroupPagerAdapter(ViewGroup viewGroup) {
-            while (viewGroup.getChildCount() > 0) {
-                views.add(viewGroup.getChildAt(0));
-                viewGroup.removeViewAt(0);
-            }
+    public class MyAdapter extends PagerAdapter {
+        public MyAdapter(){
         }
 
-        private List<View> views = new ArrayList<View>();
+        List<View> views = new Vector<View>(0);
 
         @Override
         public Object instantiateItem(ViewGroup parent, int position) {
-            View view = views.get(position);
-            ViewPager.LayoutParams lp = new ViewPager.LayoutParams();
-            lp.width = ViewPager.LayoutParams.FILL_PARENT;
-            lp.height = ViewPager.LayoutParams.FILL_PARENT;
-            view.setLayoutParams(lp);
-            parent.addView(view);
+            View view = null;
+            if(views.size()<= position){
+                view = LayoutInflater.from(TestMultiDrawer.this).inflate(R.layout.page,parent,false);
+                ((TextView)view.findViewById(R.id.pagerTextId)).setText(String.valueOf(position));
+                ViewPager.LayoutParams lp = new ViewPager.LayoutParams();
+                lp.width = ViewPager.LayoutParams.FILL_PARENT;
+                lp.height = ViewPager.LayoutParams.FILL_PARENT;
+                view.setLayoutParams(lp);
+                parent.addView(view);
+            }else{
+                view = views.get(position);
+                parent.addView(view);
+            }
+
             return view;
         }
 
@@ -296,12 +301,17 @@ public class TestMultiDrawer extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return views.size();
+            return 3;
         }
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
+        }
+
+        @Override
+        public String getPageTitle(int position){
+            return String.valueOf(position);
         }
     }
 }

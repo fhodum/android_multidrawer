@@ -1,48 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MultiDrawerView">
-        <attr name="side" format="enum">
+
+    <declare-styleable name="BaseDrawerAttributes">
+        <attr name="multiDrawerButtonPaddingTop" format="dimension"/>
+        <attr name="multiDrawerButtonPaddingLeft" format="dimension"/>
+        <attr name="multiDrawerButtonPaddingBottom" format="dimension"/>
+        <attr name="multiDrawerButtonPaddingRight" format="dimension"/>
+
+        <!-- These two values default to wrap_content" -->
+        <attr name="multiDrawerButtonLayoutHeight" format="dimension"/>
+        <attr name="multiDrawerButtonLayoutWidth" format="dimension"/>
+
+        <attr name="multiDrawerButtonSelectBackgroundColor" format="color"/>
+        <attr name="multiDrawerButtonSelectionBackgroundDrawable" format="reference"/>
+        <attr name="multiDrawerAnimationOpenCloseTime" format="integer"/>
+        <attr name="multiDrawerDeselectedButtonFadeTime" format="integer"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="LeftRightMultiDrawerView" parent="BaseDrawerAttributes">
+        <attr name="leftRightDrawerSide" format="enum">
             <enum name="left" value="0"/>
             <enum name="right" value="1"/>
         </attr>
-        <attr name="buttonPaddingTop" format="dimension"/>
-        <attr name="buttonPaddingLeft" format="dimension"/>
-        <attr name="buttonPaddingBottom" format="dimension"/>
-        <attr name="buttonPaddingRight" format="dimension"/>
 
-        <!-- These two values default to wrap_content" -->
-        <attr name="buttonLayoutHeight" format="dimension"/>
-        <attr name="buttonLayoutWidth" format="dimension"/>
-
-        <attr name="buttonSelectBackgroundColor" format="color"/>
-        <attr name="buttonSelectionBackgroundDrawable" format="reference"/>
-        <attr name="animationOpenCloseTime" format="integer"/>
-        <attr name="deselectedButtonFadeTime" format="integer"/>
     </declare-styleable>
 
-    <declare-styleable name="TopBottomMultiDrawerView">
-        <attr name="top_bottom_side" format="enum">
+    <declare-styleable name="TopBottomMultiDrawerView" parent="BaseDrawerAttributes">
+        <attr name="topBottomDrawerSide" format="enum">
             <enum name="bottom" value="0"/>
             <enum name="top" value="1"/>
         </attr>
-        <attr name="top_bottom_buttonPaddingTop" format="dimension"/>
-        <attr name="top_bottom_buttonPaddingLeft" format="dimension"/>
-        <attr name="top_bottom_buttonPaddingBottom" format="dimension"/>
-        <attr name="top_bottom_buttonPaddingRight" format="dimension"/>
 
-        <!-- These two values default to wrap_content" -->
-        <attr name="top_bottom_buttonLayoutHeight" format="dimension"/>
-        <attr name="top_bottom_buttonLayoutWidth" format="dimension"/>
-
-        <attr name="top_bottom_buttonSelectBackgroundColor" format="color"/>
-        <attr name="top_bottom_buttonSelectionBackgroundDrawable" format="reference"/>
-        <attr name="top_bottom_animationOpenCloseTime" format="integer"/>
-        <attr name="top_bottom_deselectedButtonFadeTime" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="CustomTheme">
-        <attr name="multiDrawerViewStyle" format="reference"/>
+        <attr name="leftRightMultiDrawerViewStyle" format="reference"/>
         <attr name="topBottomMultiDrawerViewStyle" format="reference"/>
+
     </declare-styleable>
 
 </resources>

@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-public class MultiDrawerView extends RelativeLayout {
+public class LeftRightMultiDrawerView extends RelativeLayout {
 
     private ScrollView buttonScrollView;
     private LinearLayout buttonLinearLayout;
@@ -56,28 +56,28 @@ public class MultiDrawerView extends RelativeLayout {
     private Map<View,View> buttonToBodyView = new HashMap<>();
 
 
-    public MultiDrawerView(Context context) {
+    public LeftRightMultiDrawerView(Context context) {
         super(context);
         init(context, null, 0, 0);
     }
 
-    public MultiDrawerView(Context context, AttributeSet attrs) {
+    public LeftRightMultiDrawerView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        init(context, attrs, R.attr.multiDrawerViewStyle, 0);
+        init(context, attrs, R.attr.leftRightMultiDrawerViewStyle, 0);
     }
 
-    public MultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, R.attr.multiDrawerViewStyle);
+    public LeftRightMultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, R.attr.leftRightMultiDrawerViewStyle);
 
-        init(context, attrs, R.attr.multiDrawerViewStyle, 0);
+        init(context, attrs, R.attr.leftRightMultiDrawerViewStyle, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public MultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, R.attr.multiDrawerViewStyle, defStyleRes);
+    public LeftRightMultiDrawerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, R.attr.leftRightMultiDrawerViewStyle, defStyleRes);
 
-        init(context, attrs, R.attr.multiDrawerViewStyle, defStyleRes);
+        init(context, attrs, R.attr.leftRightMultiDrawerViewStyle, defStyleRes);
     }
 
 
@@ -92,40 +92,40 @@ public class MultiDrawerView extends RelativeLayout {
         //setOrientation(LinearLayout.HORIZONTAL);
         //setGravity(Gravity.RIGHT);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MultiDrawerView, defStyleAttr, defStyleRes);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LeftRightMultiDrawerView, defStyleAttr, defStyleRes);
 
         //Get left or right from configuration set. For right now, assume right
-        side  = a.getInteger(R.styleable.MultiDrawerView_side,0);
+        side  = a.getInteger(R.styleable.LeftRightMultiDrawerView_leftRightDrawerSide,0);
         System.out.println("Side: " + side);
 
 
         for (int i=0; i < a.getIndexCount(); i++){
             int attr = a.getIndex(i);
-            if(attr == R.styleable.MultiDrawerView_buttonSelectBackgroundColor){
-                buttonSelectedBackgroundColor = a.getColor(R.styleable.MultiDrawerView_buttonSelectBackgroundColor, 0);
-            }else if(attr == R.styleable.MultiDrawerView_buttonLayoutWidth) {
-                buttonLayoutWidth = a.getDimension(R.styleable.MultiDrawerView_buttonLayoutWidth, LayoutParams.WRAP_CONTENT);
+            if(attr == R.styleable.BaseDrawerAttributes_multiDrawerButtonSelectBackgroundColor){
+                buttonSelectedBackgroundColor = a.getColor(R.styleable.BaseDrawerAttributes_multiDrawerButtonSelectBackgroundColor, 0);
+            }else if(attr == R.styleable.BaseDrawerAttributes_multiDrawerButtonLayoutWidth) {
+                buttonLayoutWidth = a.getDimension(R.styleable.BaseDrawerAttributes_multiDrawerButtonLayoutWidth, LayoutParams.WRAP_CONTENT);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonLayoutHeight) {
-                buttonLayoutHeight = a.getDimension(R.styleable.MultiDrawerView_buttonLayoutHeight, LayoutParams.WRAP_CONTENT);
+            }else if(attr == R.styleable.BaseDrawerAttributes_multiDrawerButtonLayoutHeight) {
+                buttonLayoutHeight = a.getDimension(R.styleable.BaseDrawerAttributes_multiDrawerButtonLayoutHeight, LayoutParams.WRAP_CONTENT);
 
-            }else if(attr == R.styleable.MultiDrawerView_animationOpenCloseTime) {
-                animationOpenCloseTime = a.getInt(R.styleable.MultiDrawerView_animationOpenCloseTime, 500);
+            }else if(attr == R.styleable.BaseDrawerAttributes_multiDrawerAnimationOpenCloseTime) {
+                animationOpenCloseTime = a.getInt(R.styleable.BaseDrawerAttributes_multiDrawerAnimationOpenCloseTime, 500);
 
-            } else if(attr == R.styleable.MultiDrawerView_deselectedButtonFadeTime) {
-                deselectedButtonFadeTime = a.getInt(R.styleable.MultiDrawerView_deselectedButtonFadeTime, 500);
+            } else if(attr == R.styleable.BaseDrawerAttributes_multiDrawerDeselectedButtonFadeTime) {
+                deselectedButtonFadeTime = a.getInt(R.styleable.BaseDrawerAttributes_multiDrawerDeselectedButtonFadeTime, 500);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingTop){
-                paddingTop = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingTop,0.0f);
+            }else if(attr == R.styleable.BaseDrawerAttributes_multiDrawerButtonPaddingTop){
+                paddingTop = a.getDimension(R.styleable.BaseDrawerAttributes_multiDrawerButtonPaddingTop,0.0f);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingLeft){
-                paddingLeft = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingLeft,0);
+            }else if(attr == R.styleable.BaseDrawerAttributes_multiDrawerButtonPaddingLeft){
+                paddingLeft = a.getDimension(R.styleable.BaseDrawerAttributes_multiDrawerButtonPaddingLeft,0);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingBottom){
-                paddingBottom = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingBottom,0);
+            }else if(attr == R.styleable.BaseDrawerAttributes_multiDrawerButtonPaddingBottom){
+                paddingBottom = a.getDimension(R.styleable.BaseDrawerAttributes_multiDrawerButtonPaddingBottom,0);
 
-            }else if(attr == R.styleable.MultiDrawerView_buttonPaddingRight){
-                paddingRight = a.getDimension(R.styleable.MultiDrawerView_buttonPaddingRight,0);
+            }else if(attr == R.styleable.BaseDrawerAttributes_multiDrawerButtonPaddingRight){
+                paddingRight = a.getDimension(R.styleable.BaseDrawerAttributes_multiDrawerButtonPaddingRight,0);
             }
 
         }
@@ -172,7 +172,7 @@ public class MultiDrawerView extends RelativeLayout {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                    MultiDrawerView.this.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    LeftRightMultiDrawerView.this.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     if(side == RIGHT){
                         bodyLayout.setX(buttonScrollView.getWidth() +  bodyLayout.getWidth());
                         buttonScrollView.setX( bodyLayout.getWidth());

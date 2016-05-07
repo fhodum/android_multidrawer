@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="MultiDrawerTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="leftRightMultiDrawerViewStyle">@style/MultiDrawerTheme.LeftRightMultiDrawerViewStyle</item>
+        <item name="topBottomMultiDrawerViewStyle">@style/MultiDrawerTheme.TopBottomMultiDrawerViewStyle</item>
+
+    </style>
+
+
+    <style name="MultiDrawerTheme.LeftRightMultiDrawerViewStyle">
+        <item name="multiDrawerButtonPaddingTop" > 5dp</item>
+        <item name="multiDrawerButtonPaddingLeft" > 4dp</item>
+        <item name="multiDrawerButtonPaddingBottom"> 5dp</item>
+        <item name="multiDrawerButtonPaddingRight">0dp</item>
+        <item name="multiDrawerButtonSelectedBackgroundColor">@color/colorAccent</item>
+        <item name="multiDrawerAnimationOpenCloseTime">500</item>
+        <item name="multiDrawerDeselectedButtonFadeTime">500</item>
+        <item name="multiDrawerSpaceBetweenDrawerTabs"> 5dp</item>
+        <item name="leftRightDrawerSide">right</item>
+
+    </style>
+
+    <style name="MultiDrawerTheme.TopBottomMultiDrawerViewStyle">
+        <item name="multiDrawerButtonPaddingTop" > 5dp</item>
+        <item name="multiDrawerButtonPaddingLeft" > 4dp</item>
+        <item name="multiDrawerButtonPaddingBottom"> 5dp</item>
+        <item name="multiDrawerButtonPaddingRight">0dp</item>
+        <item name="multiDrawerButtonSelectedBackgroundColor">@color/colorAccent</item>
+        <item name="multiDrawerAnimationOpenCloseTime">500</item>
+        <item name="multiDrawerDeselectedButtonFadeTime">500</item>
+        <item name="multiDrawerSpaceBetweenDrawerTabs"> 5dp</item>
+        <item name="topBottomDrawerSide">bottom</item>
+    </style>
+
+
+
+
+
+
+</resources>

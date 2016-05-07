@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MultiDrawerView">
-        <attr name="side" format="enum">
+
+    <declare-styleable name="BaseDrawerAttributes">
+        <attr name="multiDrawerButtonPaddingTop" format="dimension"/>
+        <attr name="multiDrawerButtonPaddingLeft" format="dimension"/>
+        <attr name="multiDrawerButtonPaddingBottom" format="dimension"/>
+        <attr name="multiDrawerButtonPaddingRight" format="dimension"/>
+
+        <!-- These two values default to wrap_content" -->
+        <attr name="multiDrawerButtonLayoutHeight" format="dimension"/>
+        <attr name="multiDrawerButtonLayoutWidth" format="dimension"/>
+        <attr name="multiDrawerButtonDeSelectedBackgroundColor" format="color"/>
+        <attr name="multiDrawerButtonSelectedBackgroundColor" format="color"/>
+        <attr name="multiDrawerAnimationOpenCloseTime" format="integer"/>
+        <attr name="multiDrawerDeselectedButtonFadeTime" format="integer"/>
+        <attr name="multiDrawerSpaceBetweenDrawerTabs" format="dimension"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="LeftRightMultiDrawerView" parent="BaseDrawerAttributes">
+        <attr name="leftRightDrawerSide" format="enum">
             <enum name="left" value="0"/>
             <enum name="right" value="1"/>
         </attr>
+
     </declare-styleable>
+
+    <declare-styleable name="TopBottomMultiDrawerView" parent="BaseDrawerAttributes">
+        <attr name="topBottomDrawerSide" format="enum">
+            <enum name="bottom" value="0"/>
+            <enum name="top" value="1"/>
+        </attr>
+
+    </declare-styleable>
+
+    <declare-styleable name="CustomTheme">
+        <attr name="leftRightMultiDrawerViewStyle" format="reference"/>
+        <attr name="topBottomMultiDrawerViewStyle" format="reference"/>
+
+    </declare-styleable>
+
 </resources>

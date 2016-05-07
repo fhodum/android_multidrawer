@@ -4,18 +4,76 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+
+
+
+
+    tools:context="com.multidrawer.fhodum.testdrawerapplication.TestMultiDrawer">
+    <!--
+       android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.multidrawer.fhodum.testdrawerapplication.TestMultiDrawer">
+        android:paddingBottom="@dimen/activity_vertical_margin"
+    -->
 
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="Open Top"
+        android:id="@+id/openTop"/>
 
-    <com.multidrawer.fhodum.multidrawer.MultiDrawerView
-        android:id="@+id/multiDrawer"
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="Close Top"
+        android:layout_below="@id/openTop"
+        android:id="@+id/closeTop"/>
+
+    <com.multidrawer.fhodum.multidrawer.TopBottomMultiDrawerView
+        android:id="@+id/multiDrawerBottom"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        style="@style/MyAppMultiDrawerStyleBottom"
+        />
+
+
+    <com.multidrawer.fhodum.multidrawer.LeftRightMultiDrawerView
+        android:id="@+id/multiDrawerLeft"
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        custom:side="right"/>
+        android:layout_alignParentLeft="true"
+
+        style="@style/MyAppMultiDrawerStyleLeft"
+        />
+
+
+    <com.multidrawer.fhodum.multidrawer.LeftRightMultiDrawerView
+        android:id="@+id/multiDrawerRight"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_alignParentRight="true"
+        style="@style/MyAppMultiDrawerStyleRight"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        />
+
+
+    <com.multidrawer.fhodum.multidrawer.TopBottomMultiDrawerView
+        android:id="@+id/multiDrawerTop"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        style="@style/MyAppMultiDrawerStyleTop"
+        />
+
 </RelativeLayout>

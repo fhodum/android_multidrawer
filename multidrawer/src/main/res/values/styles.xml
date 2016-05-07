@@ -18,9 +18,10 @@
         <item name="multiDrawerButtonPaddingLeft" > 4dp</item>
         <item name="multiDrawerButtonPaddingBottom"> 5dp</item>
         <item name="multiDrawerButtonPaddingRight">0dp</item>
-        <item name="multiDrawerButtonSelectBackgroundColor">@color/colorAccent</item>
-        <item name="multiDrawerAnimationOpenCloseTime">500</item>ß
+        <item name="multiDrawerButtonSelectedBackgroundColor">@color/colorAccent</item>
+        <item name="multiDrawerAnimationOpenCloseTime">500</item>
         <item name="multiDrawerDeselectedButtonFadeTime">500</item>
+        <item name="multiDrawerSpaceBetweenDrawerTabs"> 5dp</item>
         <item name="leftRightDrawerSide">right</item>
 
     </style>
@@ -30,9 +31,10 @@
         <item name="multiDrawerButtonPaddingLeft" > 4dp</item>
         <item name="multiDrawerButtonPaddingBottom"> 5dp</item>
         <item name="multiDrawerButtonPaddingRight">0dp</item>
-        <item name="multiDrawerButtonSelectBackgroundColor">@color/colorAccent</item>
+        <item name="multiDrawerButtonSelectedBackgroundColor">@color/colorAccent</item>
         <item name="multiDrawerAnimationOpenCloseTime">500</item>
         <item name="multiDrawerDeselectedButtonFadeTime">500</item>
+        <item name="multiDrawerSpaceBetweenDrawerTabs"> 5dp</item>
         <item name="topBottomDrawerSide">bottom</item>
     </style>
 

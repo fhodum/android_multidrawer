@@ -17,6 +17,33 @@
     -->
 
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="Open Top"
+        android:id="@+id/openTop"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="Close Top"
+        android:layout_below="@id/openTop"
+        android:id="@+id/closeTop"/>
+
+    <com.multidrawer.fhodum.multidrawer.TopBottomMultiDrawerView
+        android:id="@+id/multiDrawerBottom"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        style="@style/MyAppMultiDrawerStyleBottom"
+        />
+
+
     <com.multidrawer.fhodum.multidrawer.LeftRightMultiDrawerView
         android:id="@+id/multiDrawerLeft"
         android:layout_width="200dp"
@@ -35,16 +62,10 @@
         android:background="@android:color/transparent"
         android:layout_alignParentRight="true"
         style="@style/MyAppMultiDrawerStyleRight"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         />
 
-    <com.multidrawer.fhodum.multidrawer.TopBottomMultiDrawerView
-        android:id="@+id/multiDrawerBottom"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@android:color/transparent"
-        android:layout_alignParentBottom="true"
-        style="@style/MyAppMultiDrawerStyleBottom"
-        />
 
     <com.multidrawer.fhodum.multidrawer.TopBottomMultiDrawerView
         android:id="@+id/multiDrawerTop"
@@ -54,4 +75,5 @@
         android:layout_alignParentTop="true"
         style="@style/MyAppMultiDrawerStyleTop"
         />
+
 </RelativeLayout>

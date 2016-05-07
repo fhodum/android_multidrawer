@@ -19,6 +19,7 @@
         <item name="multiDrawerButtonPaddingLeft" > 0dp</item>
         <item name="multiDrawerButtonPaddingBottom"> 3dp</item>
         <item name="multiDrawerButtonPaddingRight">2dp</item>
+        <item name="multiDrawerSpaceBetweenDrawerTabs"> 0dp</item>
         <item name="leftRightDrawerSide">left</item>
     </style>
 
@@ -30,28 +31,30 @@
         <item name="multiDrawerButtonPaddingLeft" > 2dp</item>
         <item name="multiDrawerButtonPaddingBottom"> 3dp</item>
         <item name="multiDrawerButtonPaddingRight">0dp</item>
+        <item name="multiDrawerButtonDeSelectedBackgroundColor">@color/buttonBackgroundColor</item>
+        <item name="multiDrawerButtonSelectedBackgroundColor">@color/colorPrimaryDark</item>
         <item name="leftRightDrawerSide">right</item>
     </style>
 
     <style name="MyAppMultiDrawerStyleBottom" parent="@style/MultiDrawerTheme.TopBottomMultiDrawerViewStyle">
-        <item name="multiDrawerButtonLayoutHeight">@dimen/drawerButtonWidth</item>
-        <item name="multiDrawerButtonLayoutWidth">@dimen/drawerButtonHeight</item>
+        <item name="multiDrawerButtonLayoutHeight">20dp</item>
+        <item name="multiDrawerButtonLayoutWidth">300dp</item>
         <item name="multiDrawerDeselectedButtonFadeTime">300</item>
         <item name="multiDrawerButtonPaddingTop" > 3dp</item>
         <item name="multiDrawerButtonPaddingLeft" > 2dp</item>
         <item name="multiDrawerButtonPaddingBottom"> 0dp</item>
         <item name="multiDrawerButtonPaddingRight">2dp</item>
+        <item name="multiDrawerButtonDeSelectedBackgroundColor">@android:color/transparent</item>
     </style>
 
     <style name="MyAppMultiDrawerStyleTop" parent="@style/MultiDrawerTheme.TopBottomMultiDrawerViewStyle">
         <item name="multiDrawerButtonLayoutHeight">@dimen/drawerButtonWidth</item>
         <item name="multiDrawerButtonLayoutWidth">@dimen/drawerButtonHeight</item>
         <item name="multiDrawerDeselectedButtonFadeTime">300</item>
-        <item name="multiDrawerButtonPaddingTop" > 3dp</item>
+        <item name="multiDrawerButtonPaddingTop" > 0dp</item>
         <item name="multiDrawerButtonPaddingLeft" > 2dp</item>
-        <item name="multiDrawerButtonPaddingBottom"> 0dp</item>
+        <item name="multiDrawerButtonPaddingBottom"> 3dp</item>
         <item name="multiDrawerButtonPaddingRight">2dp</item>
-
         <item name="topBottomDrawerSide">top</item>
     </style>
 </resources>

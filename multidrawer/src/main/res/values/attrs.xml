@@ -10,11 +10,11 @@
         <!-- These two values default to wrap_content" -->
         <attr name="multiDrawerButtonLayoutHeight" format="dimension"/>
         <attr name="multiDrawerButtonLayoutWidth" format="dimension"/>
-
-        <attr name="multiDrawerButtonSelectBackgroundColor" format="color"/>
-        <attr name="multiDrawerButtonSelectionBackgroundDrawable" format="reference"/>
+        <attr name="multiDrawerButtonDeSelectedBackgroundColor" format="color"/>
+        <attr name="multiDrawerButtonSelectedBackgroundColor" format="color"/>
         <attr name="multiDrawerAnimationOpenCloseTime" format="integer"/>
         <attr name="multiDrawerDeselectedButtonFadeTime" format="integer"/>
+        <attr name="multiDrawerSpaceBetweenDrawerTabs" format="dimension"/>
     </declare-styleable>
 
 

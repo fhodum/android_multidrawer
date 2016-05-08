@@ -7,7 +7,7 @@ This is a widget library that provides a set of drawers that can slide in and ou
 - [Right Hand Drawer]
     - Drawers
 
-        ![](https://github.com/fhodum/android_multidrawer/RightDrawer.gif)
+        ![](https://github.com/fhodum/android_multidrawer/RightDrawers.gif)
 
 
 

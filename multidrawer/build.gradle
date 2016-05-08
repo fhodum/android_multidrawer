@@ -1,6 +1,15 @@
+
+
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+
+
+
+
 
 android {
     compileSdkVersion 23
@@ -10,7 +19,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
     }
     buildTypes {
         release {
@@ -29,8 +38,22 @@ dependencies {
 
 def siteUrl = 'https://github.com/fhodum/android_multidrawer'      // Homepage URL of the library
 def gitUrl = 'https://github.com/fhodum/android_multidrawer.git'   // Git repository URL
-group = "com.fhodum"                                        // Maven Group ID for the artifact
+group='com.fhodum'
 
+
+
+
+//publishing {
+//    publications {
+//        MyPublication(MavenPublication) {
+//
+//            groupId 'com.fhodum'
+//            artifactId 'multidrawer'
+//            version rootProject.ext.releaseVersion
+//            packaging 'AAR'
+//        }
+//    }
+//}
 
 install {
     repositories.mavenInstaller {
@@ -38,7 +61,9 @@ install {
         pom {
             project {
                 packaging 'aar'
-                version '1.0.0'
+                groupId 'com.fhodum'
+                artifactId 'multidrawer'
+                version '0.0.1'
                 // Add your description here
                 name 'Android library for MultiDrawer Widget'
                 url siteUrl
@@ -68,7 +93,30 @@ install {
     }
 }
 
+bintray {
+    user = System.getProperty('bintray_user','')
+    key = System.getProperty('bintray_key', '')
+    configurations = ['archives']
+    pkg {
+        repo = 'MultiDrawer'
+        name = 'AndroidMultiDrawerWidget'
+        userOrg = 'kaediil'
+        licenses = ['Apache-2.0']
+        project.version=rootProject.ext.releaseVersion
+        vcsUrl = 'https://github.com/fhodum/android_multidrawer.git'
+        version {
+            name = "MultiDrawerLibrary"
+            desc = 'Initial release of the Multi Drawer Library'
+            released  = new Date()
+            vcsTag = rootProject.ext.releaseVersion
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+
+        }
+    }
+}
+
 dependencies {
+    compile 'com.android.support:appcompat-v7:23.0.1'
 }
 
 task sourcesJar(type: Jar) {

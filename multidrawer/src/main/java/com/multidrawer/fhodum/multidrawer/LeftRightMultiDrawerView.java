@@ -324,6 +324,10 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
 
     @Override
     public boolean removeDrawer(Drawer drawer) {
+
+        if(isDrawerOpen){
+            closeDrawers();
+        }
         return false;
     }
 

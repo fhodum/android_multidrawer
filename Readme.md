@@ -34,11 +34,13 @@ The style for setting many of the attributes looks like:
 
 ## Motivation
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+The primary motivation for me was to replace the long deprecated but never really replaces Sliding Drawer. The current crop of Drawers such as NavDrawer is really meant for navigation. The use case for this type of widget is one where you have a set of tools that you need to keep bringing up, and then applying to the main window. Think a drawing tool with a color palette that you can hide while drawing then slide out to select a another color.
+
+Additionally, this library allows for adding more tabs or drawers than can fit in the screen with a sliding horizontal or vertical view.
 
 ## Installation
 
-Provide code examples and explanations of how to get the project.
+To add this code to your project,
 
 ## API Reference
 

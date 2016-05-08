@@ -16,6 +16,14 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
     -->
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="Remove Drawer"
+        android:layout_above="@+id/openTop"
+        android:id="@+id/removeButton"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -23,7 +31,7 @@
         android:gravity="center"
         android:layout_centerInParent="true"
         android:text="Open Top"
-        android:id="@+id/openTop"/>
+        android:id="@id/openTop"/>
 
     <Button
         android:layout_width="wrap_content"

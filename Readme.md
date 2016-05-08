@@ -4,6 +4,8 @@ This is a widget library that provides a set of drawers that can slide in and ou
 
 ## Code Example
 
+![Demo](screen_caps/RightDrawers.gif)
+
 There is an example application in the apps directory that contains an activity with drawers on all four sides of the screen.
 
 To add to an XML layout file you add the following code:
@@ -40,15 +42,11 @@ Additionally, this library allows for adding more tabs or drawers than can fit i
 
 ## Installation
 
-To add this code to your project,
+To add this code to your project, make sure to have jcenter in your repo list and add the following to your build.gradle file:
 
-## API Reference
+compile 'com.fhodum.multidraw:multidraw:0.0.1'
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
 
-## Tests
-
-Describe and show how to run the tests with code examples.
 
 ## Contributors
 
@@ -56,4 +54,4 @@ Let people know how they can dive into the project, include important links to t
 
 ## License
 
-A short snippet describing the license (MIT, Apache, etc.)
+This software is licensed under the Apache 2.0 license.

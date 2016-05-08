@@ -4,14 +4,28 @@ import android.view.View;
 
 /**
  * Created by fhodum on 4/30/16.
+ *
+ * Class that holds the Views for the body and the button that make up the Drawer.
+ * It also defines the callback interface that the MultiDrawer code uses to notify
+ * when this particular drawer is opened or closed.
  */
 public class Drawer {
 
     public interface DrawerCallbacks {
 
-        public void drawerOpened();
+        /**
+         * The drawer that was opened, it is called at the beginning of the open animation.
+         *
+         * @param drawer - drawer being opened
+         */
+        public void drawerOpened(Drawer drawer);
 
-        public void drawerClosed();
+        /**
+         * The drawer that was closed, it is called at the beginning of the open animation.
+         *
+         * @param drawer - drawer being closed
+         */
+        public void drawerClosed(Drawer drawer);
     }
 
 

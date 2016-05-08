@@ -15,6 +15,7 @@ import com.multidrawer.fhodum.multidrawer.LeftRightMultiDrawerView;
 import com.multidrawer.fhodum.multidrawer.MultiDrawerBase;
 import com.multidrawer.fhodum.multidrawer.TopBottomMultiDrawerView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -24,12 +25,13 @@ public class TestMultiDrawer extends AppCompatActivity {
     View vw;
 
 
+    List<Drawer> leftDrawers = new ArrayList<>(2);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_multi_drawer);
-        LeftRightMultiDrawerView leftDrawerView = (LeftRightMultiDrawerView)findViewById(R.id.multiDrawerLeft);
+        final LeftRightMultiDrawerView leftDrawerView = (LeftRightMultiDrawerView)findViewById(R.id.multiDrawerLeft);
         View button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
         View body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
 
@@ -39,9 +41,9 @@ public class TestMultiDrawer extends AppCompatActivity {
         Drawer.Builder builder = new Drawer.Builder();
         builder.setBody(body);
         builder.setButton(button);
+        leftDrawers.add(builder.createDrawer());
 
-
-        leftDrawerView.addDrawer(builder.createDrawer());
+        leftDrawerView.addDrawer(leftDrawers.get(0));
 
         button = LayoutInflater.from(this).inflate(R.layout.first_button, leftDrawerView , false);
         body = LayoutInflater.from(this).inflate(R.layout.first_body, leftDrawerView , false);
@@ -53,69 +55,20 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setBody(body);
         builder.setButton(button);
 
-        leftDrawerView.addDrawer(builder.createDrawer());
+        leftDrawers.add(builder.createDrawer());
+
+        leftDrawerView.addDrawer(leftDrawers.get(1));
+
+        ((Button)findViewById(R.id.removeButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(leftDrawers.size() > 0) {
+                    ((LeftRightMultiDrawerView) findViewById(R.id.multiDrawerLeft)).removeDrawer(leftDrawers.get(0));
+                }
+            }
+        });
 
 
-
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
-
-        ((TextView)body.findViewById(R.id.text_view)).setText("Three");
-        ((TextView)button.findViewById(R.id.button_text)).setText("Three");
-
-        builder = new Drawer.Builder();
-        builder.setBody(body);
-        builder.setButton(button);
-
-        leftDrawerView.addDrawer(builder.createDrawer());
-
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
-
-        ((TextView)body.findViewById(R.id.text_view)).setText("Four");
-        ((TextView)button.findViewById(R.id.button_text)).setText("Four");
-
-        builder = new Drawer.Builder();
-        builder.setBody(body);
-        builder.setButton(button);
-
-        leftDrawerView.addDrawer(builder.createDrawer());
-
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
-
-        ((TextView)body.findViewById(R.id.text_view)).setText("Five");
-        ((TextView)button.findViewById(R.id.button_text)).setText("Five");
-
-        builder = new Drawer.Builder();
-        builder.setBody(body);
-        builder.setButton(button);
-
-        leftDrawerView.addDrawer(builder.createDrawer());
-
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
-
-        ((TextView)body.findViewById(R.id.text_view)).setText("Six");
-        ((TextView)button.findViewById(R.id.button_text)).setText("Six");
-
-        builder = new Drawer.Builder();
-        builder.setBody(body);
-        builder.setButton(button);
-
-        leftDrawerView.addDrawer(builder.createDrawer());
-
-        button = LayoutInflater.from(this).inflate(R.layout.first_button,leftDrawerView , false);
-        body = LayoutInflater.from(this).inflate(R.layout.first_body,leftDrawerView , false);
-
-        ((TextView)body.findViewById(R.id.text_view)).setText("Seven");
-        ((TextView)button.findViewById(R.id.button_text)).setText("Seven");
-
-        builder = new Drawer.Builder();
-        builder.setBody(body);
-        builder.setButton(button);
-
-        leftDrawerView.addDrawer(builder.createDrawer());
 
 
 
@@ -239,12 +192,12 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setButton(buttonTop);
         builder.setDrawerCallback(new Drawer.DrawerCallbacks() {
             @Override
-            public void drawerOpened() {
+            public void drawerOpened(Drawer drawer) {
                 ((TextView)buttonTop.findViewById(R.id.button_text)).setText("Open");
             }
 
             @Override
-            public void drawerClosed() {
+            public void drawerClosed(Drawer drawer) {
                 ((TextView)buttonTop.findViewById(R.id.button_text)).setText("Closed");
             }
         });

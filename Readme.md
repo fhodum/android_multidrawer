@@ -55,7 +55,7 @@ compile 'com.fhodum.multidraw:multidraw:0.0.1'
 
 ## Contributors
 
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
+Send me a pull request if you have any updates for this!
 
 ## License
 

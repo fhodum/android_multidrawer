@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -21,22 +20,16 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
+
 
 public class LeftRightMultiDrawerView extends MultiDrawerBase {
 
     private ScrollView buttonScrollView;
 
-
     private int side = 1;
-
-
 
     private static final int RIGHT = 1;
     private static final int LEFT = 0;
-
 
 
 
@@ -73,7 +66,7 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
         //Get left or right from configuration set. For right now, assume right
         side  = b.getInteger(R.styleable.LeftRightMultiDrawerView_leftRightDrawerSide,0);
         System.out.println("Side: " + side);
-
+        b.recycle();
 
         buttonScrollView = new VerticalOnlyCustomScrollView(context, attrs);//requestLayout();
         buttonScrollView.setId(View.generateViewId());
@@ -164,9 +157,10 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
 
 
         bodyLayout.addView(buttonToBodyView.get(lastClickedButton));
-        Drawer.DrawerCallbacks notifyOpen = ((Drawer)((View) lastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+        Drawer drawer = ((Drawer)((View) lastClickedButton.getParent()).getTag());
+        Drawer.DrawerCallbacks notifyOpen = drawer.getDrawerCallbackHandler();
         if(notifyOpen != null){
-            notifyOpen.drawerOpened();
+            notifyOpen.drawerOpened(drawer);
         }
         isAnimating = true;
         lastClickedButton.setActivated(true);
@@ -268,9 +262,10 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
                     isDrawerOpen = false;
                     isAnimating = false;
 //                    ((View) lastClickedButton.getParent()).setBackground(null);
-                    Drawer.DrawerCallbacks notifyClosed = ((Drawer) ((View) lastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+                    Drawer drawer = (Drawer) ((View) lastClickedButton.getParent()).getTag();
+                    Drawer.DrawerCallbacks notifyClosed = drawer.getDrawerCallbackHandler();
                     if (notifyClosed != null) {
-                        notifyClosed.drawerClosed();
+                        notifyClosed.drawerClosed(drawer);
                     }
                     bodyLayout.removeAllViews();
                     lastClickedButton.setActivated(false);
@@ -303,10 +298,10 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
                 public void onAnimationEnd(Animator animation) {
                     isDrawerOpen = false;
                     isAnimating = false;
-//                    ((View) lastClickedButton.getParent()).setBackground(null);
-                    Drawer.DrawerCallbacks notifyClosed = ((Drawer) ((View) lastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+                    Drawer drawer = ((Drawer) ((View) lastClickedButton.getParent()).getTag());
+                    Drawer.DrawerCallbacks notifyClosed = drawer.getDrawerCallbackHandler();
                     if (notifyClosed != null) {
-                        notifyClosed.drawerClosed();
+                        notifyClosed.drawerClosed(drawer);
                     }
                     bodyLayout.removeAllViews();
                     lastClickedButton.setActivated(false);
@@ -399,9 +394,10 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
         if(isDrawerOpen && oldLastClickedButton != lastClickedButton && !isAnimating){  //Changing open tabs
             lastClickedButton.setActivated(true);
             oldLastClickedButton.setActivated(false);
-            Drawer.DrawerCallbacks notifyClosed = ((Drawer)((View)oldLastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+            Drawer drawer = ((Drawer)((View)oldLastClickedButton.getParent()).getTag());
+            Drawer.DrawerCallbacks notifyClosed = drawer.getDrawerCallbackHandler();
             if(notifyClosed  != null){
-                notifyClosed .drawerOpened();
+                notifyClosed.drawerClosed(drawer);
             }
 
             int colorFrom = buttonSelectedBackgroundColor;
@@ -440,9 +436,10 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
             colorAnimation.start();
             bodyLayout.removeAllViews();
             bodyLayout.addView(buttonToBodyView.get(lastClickedButton));
-            Drawer.DrawerCallbacks notifyOpen = ((Drawer)((View) lastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+            Drawer drawerOpen =  ((Drawer)((View) lastClickedButton.getParent()).getTag());
+            Drawer.DrawerCallbacks notifyOpen =drawerOpen.getDrawerCallbackHandler();
             if(notifyOpen != null){
-                notifyOpen.drawerOpened();
+                notifyOpen.drawerOpened(drawerOpen);
             }
             ((View) lastClickedButton.getParent()).setBackgroundColor(buttonSelectedBackgroundColor);
 

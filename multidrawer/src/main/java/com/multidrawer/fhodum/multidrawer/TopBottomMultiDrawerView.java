@@ -146,52 +146,6 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
     }
 
 
-
-//    public  void addDrawer(Drawer drawer) {
-//
-//        View button = drawer.getButton();
-//       //button.setOnClickListener(new RightSideButtonClickListener());
-//        LinearLayout buttonWrapper = new LinearLayout(getContext());
-//        buttonWrapper.setOrientation(LinearLayout.VERTICAL);
-//        buttonWrapper.setGravity(Gravity.CENTER);
-//
-//        buttonWrapper.setTag(drawer);
-//        final GestureDetector gestureDetector;
-//        gestureDetector = new GestureDetector(getContext(),new MyGestureDetector(button));
-//        button.setOnTouchListener(new OnTouchListener() {
-//
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (gestureDetector.onTouchEvent(event)) {
-//                    return false;
-//                } else {
-//                    return true;
-//                }
-//            }
-//        });
-//        LinearLayout.LayoutParams buttonWrapperLayoutParams = new LinearLayout.LayoutParams((int)(buttonLayoutWidth+0.5f), (int)(buttonLayoutHeight + 0.5f));
-//        buttonWrapper.setPadding((int)(paddingLeft+0.5f),(int)(paddingTop+0.5f),(int)(paddingRight+0.5f),(int)(paddingBottom+0.5f));
-//        buttonWrapperLayoutParams.gravity = Gravity.CENTER;
-//        buttonWrapper.addView(button,buttonWrapperLayoutParams);
-//
-//
-//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//        layoutParams.gravity = Gravity.CENTER;
-//        buttonLinearLayout.addView(buttonWrapper, layoutParams);
-//
-//        View body = drawer.getBody();
-//
-//        buttonToBodyView.put(button,body);
-//        drawers.add(drawer);
-//        if(lastClickedButton == null) {
-//            lastClickedButton = button;
-//
-//
-//        }else{
-//            body.setVisibility(GONE);
-//        }
-//        requestLayout();
-//    }
-
     @Override
     public boolean removeDrawer(Drawer drawer) {
         return false;
@@ -215,9 +169,10 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
 
 
         bodyLayout.addView(buttonToBodyView.get(lastClickedButton));
-        Drawer.DrawerCallbacks notifyOpen = ((Drawer)((View) lastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+        Drawer drawer =  ((Drawer)((View) lastClickedButton.getParent()).getTag());
+        Drawer.DrawerCallbacks notifyOpen =drawer.getDrawerCallbackHandler();
         if(notifyOpen != null){
-            notifyOpen.drawerOpened();
+            notifyOpen.drawerOpened(drawer);
         }
         isAnimating = true;
         lastClickedButton.setActivated(true);
@@ -318,9 +273,10 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
                 public void onAnimationEnd(Animator animation) {
                     isDrawerOpen = false;
                     isAnimating = false;
-                    Drawer.DrawerCallbacks notifyClosed = ((Drawer) ((View) lastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+                    Drawer drawer = ((Drawer) ((View) lastClickedButton.getParent()).getTag());
+                    Drawer.DrawerCallbacks notifyClosed = drawer.getDrawerCallbackHandler();
                     if (notifyClosed != null) {
-                        notifyClosed.drawerClosed();
+                        notifyClosed.drawerClosed(drawer);
                     }
                     bodyLayout.removeAllViews();
                     lastClickedButton.setActivated(false);
@@ -353,10 +309,10 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
                 public void onAnimationEnd(Animator animation) {
                     isDrawerOpen = false;
                     isAnimating = false;
-//                    ((View) lastClickedButton.getParent()).setBackground(null);
-                    Drawer.DrawerCallbacks notifyClosed = ((Drawer) ((View) lastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+                    Drawer drawer = ((Drawer) ((View) lastClickedButton.getParent()).getTag());
+                    Drawer.DrawerCallbacks notifyClosed = drawer.getDrawerCallbackHandler();
                     if (notifyClosed != null) {
-                        notifyClosed.drawerClosed();
+                        notifyClosed.drawerClosed(drawer);
                     }
                     bodyLayout.removeAllViews();
                     lastClickedButton.setActivated(false);
@@ -445,9 +401,10 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
             lastClickedButton.setActivated(true);
             oldLastClickedButton.setActivated(false);
 
-            Drawer.DrawerCallbacks notifyClosed = ((Drawer)((View)oldLastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+            Drawer drawer = ((Drawer) ((View) lastClickedButton.getParent()).getTag());
+            Drawer.DrawerCallbacks notifyClosed = drawer.getDrawerCallbackHandler();
             if(notifyClosed  != null){
-                notifyClosed .drawerOpened();
+                notifyClosed.drawerOpened(drawer);
             }
 
             int colorFrom = buttonSelectedBackgroundColor;
@@ -487,9 +444,10 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
             colorAnimation.start();
             bodyLayout.removeAllViews();
             bodyLayout.addView(buttonToBodyView.get(lastClickedButton));
-            Drawer.DrawerCallbacks notifyOpen = ((Drawer)((View) lastClickedButton.getParent()).getTag()).getDrawerCallbackHandler();
+            Drawer drawerOpen = ((Drawer)((View) lastClickedButton.getParent()).getTag());
+            Drawer.DrawerCallbacks notifyOpen = drawer.getDrawerCallbackHandler();
             if(notifyOpen != null){
-                notifyOpen.drawerOpened();
+                notifyOpen.drawerOpened(drawerOpen);
             }
             ((View) lastClickedButton.getParent()).setBackgroundColor(buttonSelectedBackgroundColor);
 

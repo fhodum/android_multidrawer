@@ -239,12 +239,12 @@ public class TestMultiDrawer extends AppCompatActivity {
         builder.setButton(buttonTop);
         builder.setDrawerCallback(new Drawer.DrawerCallbacks() {
             @Override
-            public void drawerOpened() {
+            public void drawerOpened(Drawer drawer) {
                 ((TextView)buttonTop.findViewById(R.id.button_text)).setText("Open");
             }
 
             @Override
-            public void drawerClosed() {
+            public void drawerClosed(Drawer drawer) {
                 ((TextView)buttonTop.findViewById(R.id.button_text)).setText("Closed");
             }
         });

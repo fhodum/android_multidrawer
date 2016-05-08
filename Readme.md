@@ -4,7 +4,12 @@ This is a widget library that provides a set of drawers that can slide in and ou
 
 ## Code Example
 
-![Demo](screen_caps/RightDrawers.gif)
+- [Right Hand Drawer]
+    - Drawers
+
+        ![](https://github.com/fhodum/android_multidrawer/RightDrawer.gif)
+
+
 
 There is an example application in the apps directory that contains an activity with drawers on all four sides of the screen.
 

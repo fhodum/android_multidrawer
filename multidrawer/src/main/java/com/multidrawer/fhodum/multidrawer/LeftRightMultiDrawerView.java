@@ -14,17 +14,22 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
+import java.util.Vector;
 
 
 public class LeftRightMultiDrawerView extends MultiDrawerBase {
 
     private ScrollView buttonScrollView;
+
 
     private int side = 1;
 
@@ -269,6 +274,7 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
                     }
                     bodyLayout.removeAllViews();
                     lastClickedButton.setActivated(false);
+                    processQueuedRemovals();
                 }
 
                 @Override
@@ -305,6 +311,7 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
                     }
                     bodyLayout.removeAllViews();
                     lastClickedButton.setActivated(false);
+                    processQueuedRemovals();
                 }
 
                 @Override
@@ -322,14 +329,7 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
     }
 
 
-    @Override
-    public boolean removeDrawer(Drawer drawer) {
 
-        if(isDrawerOpen){
-            closeDrawers();
-        }
-        return false;
-    }
 
     private class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
 

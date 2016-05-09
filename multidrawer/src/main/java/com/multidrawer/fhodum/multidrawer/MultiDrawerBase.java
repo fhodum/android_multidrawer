@@ -1,5 +1,7 @@
 package com.multidrawer.fhodum.multidrawer;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,11 +12,14 @@ import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Space;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -26,6 +31,7 @@ public abstract  class MultiDrawerBase extends RelativeLayout implements IMultiD
     protected Vector<Drawer> drawers = null;
     protected Map<View,View> buttonToBodyView = new HashMap<>();
 
+    protected List<Drawer> removingDrawersQueue = new Vector<>();
     protected LinearLayout buttonLinearLayout;
     protected LinearLayout bodyLayout;
 
@@ -195,5 +201,87 @@ public abstract  class MultiDrawerBase extends RelativeLayout implements IMultiD
         }
     }
 
+    @Override
+    public boolean removeDrawer(Drawer drawer){
+        if(isDrawerOpen){
+            closeDrawers();
+            queueRemove(drawer);
+        }else{
+            queueRemove(drawer);
+            processQueuedRemovals();
+        }
+        boolean retVal = false;
+        ViewParent viewParent = drawer.getButton().getParent();
+        if(viewParent != null){
+            retVal = true;
+        }
+        return retVal;
+    }
+
+    //abstract protected void animateRemovalOfDrawerButton(ValueAnimator animator, Drawer drawer);
+
+    synchronized protected void queueRemove(Drawer drawer){
+        removingDrawersQueue.add(drawer);
+    }
+
+    synchronized protected void processQueuedRemovals(){
+
+        for(final Drawer drawer:removingDrawersQueue){
+            if(drawer.getButton().getParent() != null){
+                View pv = (View)drawer.getButton().getParent();
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pv.getWidth(), pv.getHeight());
+                pv.setLayoutParams(params);
+
+                ValueAnimator va = ValueAnimator.ofInt(pv.getHeight(), 0);
+                va.setDuration(200);
+                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        Integer value = (Integer) animation.getAnimatedValue();
+                        ((View)drawer.getButton().getParent()).getLayoutParams().height = value.intValue();
+                        ((View)drawer.getButton().getParent()).requestLayout();
+                    }
+                });
+                va.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        completeRemoveDrawer(drawer);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+                va.start();
+
+
+
+            }
+
+        }
+        removingDrawersQueue.clear();
+    }
+
+    private void completeRemoveDrawer(Drawer drawer){
+        ViewParent viewParent = drawer.getButton().getParent();
+
+        if(viewParent != null){
+            drawers.remove(drawer);
+            buttonLinearLayout.removeView((View)viewParent);
+            bodyLayout.removeView(drawer.getBody());
+            ((ViewGroup)viewParent).removeView(drawer.getButton());
+
+        }
+    }
 
 }

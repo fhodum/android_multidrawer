@@ -17,6 +17,8 @@ import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -146,10 +148,6 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
     }
 
 
-    @Override
-    public boolean removeDrawer(Drawer drawer) {
-        return false;
-    }
 
 
     private void openDrawer() {
@@ -280,6 +278,7 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
                     }
                     bodyLayout.removeAllViews();
                     lastClickedButton.setActivated(false);
+                    processQueuedRemovals();
                 }
 
                 @Override
@@ -316,6 +315,7 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
                     }
                     bodyLayout.removeAllViews();
                     lastClickedButton.setActivated(false);
+                    processQueuedRemovals();
                 }
 
                 @Override
@@ -459,5 +459,7 @@ public class TopBottomMultiDrawerView extends MultiDrawerBase {
             openDrawer();
         }
     }
+
+
 
 }

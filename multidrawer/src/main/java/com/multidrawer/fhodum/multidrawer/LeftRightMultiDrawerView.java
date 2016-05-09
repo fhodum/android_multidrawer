@@ -14,16 +14,12 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
-import java.util.Vector;
 
 
 public class LeftRightMultiDrawerView extends MultiDrawerBase {
@@ -454,6 +450,44 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
 
             openDrawer();
         }
+    }
+
+    protected Animator getButtonRemovalAnimator(final Drawer drawer){
+        View pv = (View)drawer.getButton().getParent();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pv.getWidth(), pv.getHeight());
+        pv.setLayoutParams(params);
+        ValueAnimator va = ValueAnimator.ofInt(pv.getHeight(), 0);
+        va.setDuration(200);
+        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Integer value = (Integer) animation.getAnimatedValue();
+                ((View)drawer.getButton().getParent()).getLayoutParams().height = value.intValue();
+                ((View)drawer.getButton().getParent()).requestLayout();
+            }
+        });
+        va.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                completeRemoveDrawer(drawer);
+                isAnimating = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        return va;
     }
 
 }

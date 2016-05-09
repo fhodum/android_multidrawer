@@ -1,7 +1,6 @@
 package com.multidrawer.fhodum.multidrawer;
 
 import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -201,6 +200,22 @@ public abstract  class MultiDrawerBase extends RelativeLayout implements IMultiD
         }
     }
 
+
+
+    abstract protected Animator getButtonRemovalAnimator(Drawer drawer);
+
+    protected void completeRemoveDrawer(Drawer drawer){
+        ViewParent viewParent = drawer.getButton().getParent();
+
+        if(viewParent != null){
+            drawers.remove(drawer);
+            buttonLinearLayout.removeView((View)viewParent);
+            bodyLayout.removeView(drawer.getBody());
+            ((ViewGroup)viewParent).removeView(drawer.getButton());
+
+        }
+    }
+
     @Override
     public boolean removeDrawer(Drawer drawer){
         if(isDrawerOpen){
@@ -228,60 +243,17 @@ public abstract  class MultiDrawerBase extends RelativeLayout implements IMultiD
 
         for(final Drawer drawer:removingDrawersQueue){
             if(drawer.getButton().getParent() != null){
-                View pv = (View)drawer.getButton().getParent();
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pv.getWidth(), pv.getHeight());
-                pv.setLayoutParams(params);
+                isAnimating = true;
 
-                ValueAnimator va = ValueAnimator.ofInt(pv.getHeight(), 0);
-                va.setDuration(200);
-                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        Integer value = (Integer) animation.getAnimatedValue();
-                        ((View)drawer.getButton().getParent()).getLayoutParams().height = value.intValue();
-                        ((View)drawer.getButton().getParent()).requestLayout();
-                    }
-                });
-                va.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
 
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        completeRemoveDrawer(drawer);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
+                Animator va = getButtonRemovalAnimator(drawer);
                 va.start();
-
 
 
             }
 
         }
         removingDrawersQueue.clear();
-    }
-
-    private void completeRemoveDrawer(Drawer drawer){
-        ViewParent viewParent = drawer.getButton().getParent();
-
-        if(viewParent != null){
-            drawers.remove(drawer);
-            buttonLinearLayout.removeView((View)viewParent);
-            bodyLayout.removeView(drawer.getBody());
-            ((ViewGroup)viewParent).removeView(drawer.getButton());
-
-        }
     }
 
 }

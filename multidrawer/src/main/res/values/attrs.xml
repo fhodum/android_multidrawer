@@ -34,10 +34,19 @@
 
     </declare-styleable>
 
+    <declare-styleable name="MultiDrawerView" parent="BaseDrawerAttributes">
+        <attr name="side" format="enum">
+            <enum name="right" value="0"/>
+            <enum name="left" value="1"/>
+            <enum name="top" value="2"/>
+            <enum name="bottom" value="3"/>
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="CustomTheme">
         <attr name="leftRightMultiDrawerViewStyle" format="reference"/>
         <attr name="topBottomMultiDrawerViewStyle" format="reference"/>
-
+        <attr name="multiDrawerViewStyle" format="reference"/>
     </declare-styleable>
 
 </resources>

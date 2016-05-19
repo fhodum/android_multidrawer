@@ -9,6 +9,7 @@
 
         <item name="leftRightMultiDrawerViewStyle">@style/MultiDrawerTheme.LeftRightMultiDrawerViewStyle</item>
         <item name="topBottomMultiDrawerViewStyle">@style/MultiDrawerTheme.TopBottomMultiDrawerViewStyle</item>
+        <item name="multiDrawerViewStyle">@style/MultiDrawerTheme.MultiDrawerViewStyle</item>
 
     </style>
 
@@ -39,7 +40,17 @@
     </style>
 
 
-
+    <style name="MultiDrawerTheme.MultiDrawerViewStyle">
+        <item name="multiDrawerButtonPaddingTop" > 5dp</item>
+        <item name="multiDrawerButtonPaddingLeft" > 4dp</item>
+        <item name="multiDrawerButtonPaddingBottom"> 5dp</item>
+        <item name="multiDrawerButtonPaddingRight">0dp</item>
+        <item name="multiDrawerButtonSelectedBackgroundColor">@color/colorAccent</item>
+        <item name="multiDrawerAnimationOpenCloseTime">500</item>
+        <item name="multiDrawerDeselectedButtonFadeTime">500</item>
+        <item name="multiDrawerSpaceBetweenDrawerTabs"> 5dp</item>
+        <item name="side">right</item>
+    </style>
 
 
 

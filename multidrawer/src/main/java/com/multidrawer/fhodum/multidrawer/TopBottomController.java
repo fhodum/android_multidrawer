@@ -30,6 +30,7 @@ public class TopBottomController implements IDrawerController {
     public TopBottomController(MultiDrawerView parentView, Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes ){
         myParentView = new WeakReference<>(parentView);
         buttonScrollView = new HorizontalOnlyCustomScrollView(context, attrs);
+        buttonScrollView.setId(View.generateViewId());
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= android.os.Build.VERSION_CODES.LOLLIPOP) {
            parentView.buttonLinearLayout = new LinearLayout(context, attrs, defStyleAttr, defStyleRes);
@@ -67,8 +68,8 @@ public class TopBottomController implements IDrawerController {
             layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
             layoutParams.addRule(RelativeLayout.ABOVE, buttonScrollView.getId());
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            parentView.bodyLayout.setLayoutParams(layoutParams);
-            parentView.addView(myParentView.get().bodyLayout);
+//            parentView.bodyLayout.setLayoutParams(layoutParams);
+            parentView.addView(myParentView.get().bodyLayout, layoutParams);
         }
 
         ViewTreeObserver viewTreeObserver = parentView.getViewTreeObserver();
@@ -345,6 +346,11 @@ public class TopBottomController implements IDrawerController {
 
             handleSingleTap(myView.get());
             return true;
+        }
+
+        @Override
+        public boolean onScroll( MotionEvent e1, MotionEvent e2, float dX, float dY){
+            return false;
         }
     }
 

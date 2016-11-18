@@ -95,32 +95,12 @@ public class TestMergedMultiDrawer extends Activity {
         {
             final MultiDrawerView bottomDrawerView = (MultiDrawerView)findViewById(R.id.multiDrawerBottom);
             //BOTTOM
-//            final View buttonBottom = LayoutInflater.from(this).inflate(R.layout.top_button,bottomDrawerView , false);
             View body = LayoutInflater.from(this).inflate(R.layout.bottom_body,bottomDrawerView, false);
 
-//            Drawer.Builder builder = new Drawer.Builder();
-//            builder.setBody(body);
-//            builder.setButton(buttonBottom);
-//            final Drawer drawer = builder.createDrawer();
-//            bottomDrawerView.addDrawer(drawer);
-//            ((TextView)buttonBottom.findViewById(R.id.button_text)).setText("Bottom");
-//            ViewPager vp = (ViewPager)body.findViewById(R.id.view_pager);
-//            vp.setAdapter(new MyAdapter());
 
             PanelDrawer.Builder builder = new PanelDrawer.Builder();
             builder.setBody(body);
 
-            builder.setPanelCallback(new PanelDrawer.PanelCallbacks() {
-                @Override
-                public void panelOpened(PanelDrawer drawer) {
-//                    ((TextView)buttonBottom.findViewById(R.id.button_text)).setText("Open");
-                }
-
-                @Override
-                public void panelClosed(PanelDrawer drawer) {
-//                    ((TextView)buttonBottom.findViewById(R.id.button_text)).setText("Closed");
-                }
-            });
             final PanelDrawer drawer = builder.createDrawer();
             bottomDrawerView.addDrawer(drawer);
 

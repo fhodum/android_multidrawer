@@ -127,7 +127,18 @@ public abstract  class MultiDrawerBase extends RelativeLayout implements IMultiD
 
     abstract protected void handleSingleTap(View vw);
 
-    abstract void closeDrawer();
+
+    public void toggleDrawer(Drawer drawer) {
+        if(lastClickedButton!= null && lastClickedButton.equals(drawer.getButton()) && drawers.contains(drawer)){
+            if(isDrawerOpen){
+                closeDrawers();
+            }else{
+                openDrawer(drawer);
+            }
+        }else {
+            openDrawer(drawer);
+        }
+    }
 
     public void addDrawer(Drawer drawer) {
 
@@ -176,7 +187,7 @@ public abstract  class MultiDrawerBase extends RelativeLayout implements IMultiD
     @Override
     public boolean openDrawer(Drawer drawer) {
         boolean retVal = false;
-        if (!isDrawerOpen && lastClickedButton!= null && !lastClickedButton.equals(drawer.getButton()) && drawers.contains(drawer)) {
+        if (!isDrawerOpen || (lastClickedButton!= null && !lastClickedButton.equals(drawer.getButton()) && drawers.contains(drawer))) {
             handleSingleTap((View)drawer.getButton());
             retVal = true;
         }
@@ -193,6 +204,7 @@ public abstract  class MultiDrawerBase extends RelativeLayout implements IMultiD
         return retVal;
     }
 
+    abstract  void closeDrawer();
     @Override
     public void closeDrawers() {
         if(isDrawerOpen){

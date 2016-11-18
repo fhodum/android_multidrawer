@@ -141,7 +141,7 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
     }
 
 
-    private void openDrawer() {
+    void openDrawer() {
         int colorFrom = buttonDeSelectedBackgroundColor;
         int colorTo = buttonSelectedBackgroundColor;
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
@@ -229,7 +229,7 @@ public class LeftRightMultiDrawerView extends MultiDrawerBase {
         }
     }
 
-    protected void closeDrawer(){
+    void closeDrawer(){
         isAnimating = true;
         int colorFrom = buttonSelectedBackgroundColor;
         int colorTo = buttonDeSelectedBackgroundColor;

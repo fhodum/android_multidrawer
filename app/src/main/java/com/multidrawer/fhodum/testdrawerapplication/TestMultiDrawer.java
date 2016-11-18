@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.multidrawer.fhodum.multidrawer.Drawer;
 import com.multidrawer.fhodum.multidrawer.LeftRightMultiDrawerView;
-import com.multidrawer.fhodum.multidrawer.MultiDrawerBase;
 import com.multidrawer.fhodum.multidrawer.TopBottomMultiDrawerView;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class TestMultiDrawer extends AppCompatActivity {
 
         ((TextView)body.findViewById(R.id.text_view)).setText("One");
         ((TextView)button.findViewById(R.id.button_text)).setText("One");
-
+        button.setVisibility(View.GONE);
         Drawer.Builder builder = new Drawer.Builder();
         builder.setBody(body);
         builder.setButton(button);
@@ -68,7 +67,14 @@ public class TestMultiDrawer extends AppCompatActivity {
             }
         });
 
-
+        ((Button)findViewById(R.id.openLeft)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(leftDrawers.size() > 0) {
+                    ((LeftRightMultiDrawerView) findViewById(R.id.multiDrawerLeft)).toggleDrawer(leftDrawers.get(0));
+                }
+            }
+        });
 
 
 

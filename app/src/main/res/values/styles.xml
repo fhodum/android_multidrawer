@@ -90,4 +90,15 @@
         <item name="multiDrawerButtonPaddingRight"> 2dp</item>
         <item name="side">top</item>
     </style>
+
+    <style name="MyMultiDrawerStyleBottom" parent="@style/MultiDrawerTheme.MultiDrawerViewStyle">
+        <item name="multiDrawerButtonLayoutHeight">@dimen/drawerButtonWidth</item>
+        <item name="multiDrawerButtonLayoutWidth">@dimen/drawerButtonHeight</item>
+        <item name="multiDrawerDeselectedButtonFadeTime">300</item>
+        <item name="multiDrawerButtonPaddingTop" > 2dp</item>
+        <item name="multiDrawerButtonPaddingLeft" > 2dp</item>
+        <item name="multiDrawerButtonPaddingBottom"> 0dp</item>
+        <item name="multiDrawerButtonPaddingRight"> 2dp</item>
+        <item name="side">bottom</item>
+    </style>
 </resources>

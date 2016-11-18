@@ -9,77 +9,67 @@ import android.view.View;
  * It also defines the callback interface that the MultiDrawer code uses to notify
  * when this particular drawer is opened or closed.
  */
-public class Drawer {
+public class PanelDrawer extends Drawer{
 
-    public interface DrawerCallbacks {
+    public interface PanelCallbacks {
 
         /**
          * The drawer that was opened, it is called at the beginning of the open animation.
          *
          * @param drawer - drawer being opened
          */
-        public void drawerOpened(Drawer drawer);
+        public void panelOpened(PanelDrawer drawer);
 
         /**
          * The drawer that was closed, it is called at the beginning of the open animation.
          *
          * @param drawer - drawer being closed
          */
-        public void drawerClosed(Drawer drawer);
+        public void panelClosed(PanelDrawer drawer);
     }
 
 
+    private PanelCallbacks callbackHandler = null;
 
 
-    private View button;
-    private View body;
-    private DrawerCallbacks callbackHandler = null;
-
-
-    Drawer(View button, View body){
-        this.button = button;
-        this.body = body;
+    private PanelDrawer(View body){
+        super(new View(body.getContext()) ,body);
+//        getButton().setVisibility(View.GONE);
     }
 
-    Drawer(View button, View body, DrawerCallbacks callbacks){
-        this.button = button;
-        this.body = body;
+    private PanelDrawer(View body, PanelCallbacks callbacks){
+        super(new View(body.getContext()),body);
         this.callbackHandler = callbacks;
     }
 
     public static class Builder {
 
-        private View buttonView = null;
         private View bodyView = null;
-        private DrawerCallbacks drawerCallbacks = null;
+        private PanelCallbacks drawerCallbacks = null;
 
         public Builder(){
 
         }
 
-        public Builder setButton(View vw){
-            this.buttonView = vw;
-            return this;
-        }
 
         public Builder setBody(View vw){
             this.bodyView = vw;
             return this;
         }
 
-        public Builder setDrawerCallback(DrawerCallbacks callback){
+        public Builder setPanelCallback(PanelCallbacks callback){
             this.drawerCallbacks = callback;
             return this;
         }
 
-        public Drawer createDrawer() {
-            Drawer retVal = null;
-            if (buttonView != null && bodyView != null) {
+        public PanelDrawer createDrawer() {
+            PanelDrawer retVal = null;
+            if (bodyView != null) {
                 if(drawerCallbacks != null) {
-                    retVal = new Drawer(buttonView,bodyView,drawerCallbacks);
+                    retVal = new PanelDrawer(bodyView,drawerCallbacks);
                 }
                 else {
-                    retVal = new Drawer(buttonView, bodyView);
+                    retVal = new PanelDrawer( bodyView);
                 }
             } else {
                 throw new IllegalStateException("Please set both the bosy and the button view before creating the drawer");
@@ -89,16 +79,9 @@ public class Drawer {
 
     }
 
-    View getBody() {
-        return body;
-    }
 
-    View getButton() {
-        return button;
-    }
+    PanelCallbacks getPanelCallbackHandler(){ return callbackHandler; }
 
-    DrawerCallbacks getDrawerCallbackHandler(){ return callbackHandler; }
+    boolean isPanel() { return true;}
 
-
-    boolean isPanel() { return false;}
 }

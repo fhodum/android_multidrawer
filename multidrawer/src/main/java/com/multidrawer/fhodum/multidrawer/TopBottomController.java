@@ -51,7 +51,7 @@ public class TopBottomController implements IDrawerController {
 
         if(parentView.side == MultiDrawerView.BOTTOM) {
             RelativeLayout.LayoutParams layoutParams =new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL|RelativeLayout.ALIGN_PARENT_TOP);
+            layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL|RelativeLayout.ALIGN_PARENT_BOTTOM);
             parentView.addView(buttonScrollView, layoutParams);
 
             layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -80,7 +80,7 @@ public class TopBottomController implements IDrawerController {
                     myParentView.get().getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     if(myParentView.get().side == MultiDrawerView.BOTTOM){
                         myParentView.get().bodyLayout.setY(myParentView.get().getHeight());
-                        myParentView.get().setY( myParentView.get().getHeight() - buttonScrollView.getHeight());
+                        buttonScrollView.setY( myParentView.get().getHeight() - buttonScrollView.getHeight());
                     }else {
                         myParentView.get().bodyLayout.setY(-myParentView.get().bodyLayout.getHeight());
                         buttonScrollView.setY(0);

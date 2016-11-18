@@ -167,32 +167,36 @@ public class MultiDrawerView extends RelativeLayout implements IMultiDrawer {
 
         View button = drawer.getButton();
         //button.setOnClickListener(new RightSideButtonClickListener());
-        LinearLayout buttonWrapper = new LinearLayout(getContext());
-        buttonWrapper.setOrientation(LinearLayout.VERTICAL);
-        buttonWrapper.setGravity(Gravity.CENTER);
-        buttonWrapper.setBackgroundColor(buttonDeSelectedBackgroundColor);
-        buttonWrapper.setTag(drawer);
-        final GestureDetector gestureDetector;
-        gestureDetector = new GestureDetector(getContext(),getGestureDetector(button));
-        button.setOnTouchListener(new View.OnTouchListener() {
+        if(button!=null) {
+            LinearLayout buttonWrapper = new LinearLayout(getContext());
+            buttonWrapper.setOrientation(LinearLayout.VERTICAL);
+            buttonWrapper.setGravity(Gravity.CENTER);
+            buttonWrapper.setBackgroundColor(buttonDeSelectedBackgroundColor);
+            buttonWrapper.setTag(drawer);
+            final GestureDetector gestureDetector;
+            gestureDetector = new GestureDetector(getContext(), getGestureDetector(button));
+            button.setOnTouchListener(new View.OnTouchListener() {
 
-            public boolean onTouch(View v, MotionEvent event) {
-                if (gestureDetector.onTouchEvent(event)) {
-                    return false;
-                } else {
-                    return true;
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (gestureDetector.onTouchEvent(event)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
                 }
+            });
+            int showhandle = (drawer.isPanel()?0:1);
+            LinearLayout.LayoutParams buttonWrapperLayoutParams = new LinearLayout.LayoutParams((int) (buttonLayoutWidth + 0.5f), (int) ((showhandle) * (buttonLayoutHeight + 0.5f)));
+            if(!drawer.isPanel()) {
+                buttonWrapper.setPadding((int) (paddingLeft + 0.5f), (int) (paddingTop + 0.5f), (int) (paddingRight + 0.5f), (int) (paddingBottom + 0.5f));
             }
-        });
-        LinearLayout.LayoutParams buttonWrapperLayoutParams = new LinearLayout.LayoutParams((int)(buttonLayoutWidth+0.5f), (int)(buttonLayoutHeight + 0.5f));
-        buttonWrapper.setPadding((int)(paddingLeft+0.5f),(int)(paddingTop+0.5f),(int)(paddingRight+0.5f),(int)(paddingBottom+0.5f));
-        buttonWrapperLayoutParams.gravity = Gravity.CENTER;
-        buttonWrapper.addView(button,buttonWrapperLayoutParams);
+            buttonWrapperLayoutParams.gravity = Gravity.CENTER;
+            buttonWrapper.addView(button, buttonWrapperLayoutParams);
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER;
-        buttonLinearLayout.addView(buttonWrapper, layoutParams);
-
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.gravity = Gravity.CENTER;
+            buttonLinearLayout.addView(buttonWrapper, layoutParams);
+        }
         View body = drawer.getBody();
 
         buttonToBodyView.put(button,body);
@@ -208,9 +212,24 @@ public class MultiDrawerView extends RelativeLayout implements IMultiDrawer {
     }
 
     @Override
+    public void toggleDrawer(Drawer drawer) {
+        if(lastClickedButton!= null && lastClickedButton.equals(drawer.getButton()) && drawers.contains(drawer)){
+            if(isDrawerOpen){
+                closeDrawers();
+            }else{
+                openDrawer(drawer);
+            }
+        }else {
+            lastClickedButton = drawer.getButton();
+            openDrawer(drawer);
+        }
+    }
+
+
+    @Override
     public boolean openDrawer(Drawer drawer) {
         boolean retVal = false;
-        if (!isDrawerOpen && lastClickedButton!= null && !lastClickedButton.equals(drawer.getButton()) && drawers.contains(drawer)) {
+        if (!isDrawerOpen ||( lastClickedButton!= null && !lastClickedButton.equals(drawer.getButton()) && drawers.contains(drawer))) {
             handleSingleTap((View)drawer.getButton());
             retVal = true;
         }

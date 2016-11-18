@@ -17,6 +17,22 @@
     -->
 
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="Toggle Right Drawer"
+        android:id="@+id/toggleRightButton"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="Toggle Bottom Drawer"
+        android:id="@+id/toggleButton"
+        android:layout_below="@id/toggleRightButton"/>
 
     <com.multidrawer.fhodum.multidrawer.MultiDrawerView
         android:id="@+id/multiDrawerRight"
@@ -47,9 +63,19 @@
         android:background="@android:color/transparent"
         android:layout_alignParentTop="true"
         style="@style/MyMultiDrawerStyleTop"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="8dp"
         />
 
+    <com.multidrawer.fhodum.multidrawer.MultiDrawerView
+        android:id="@+id/multiDrawerBottom"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        style="@style/MyMultiDrawerStyleBottom"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="0dp"
+        />
 
 </RelativeLayout>

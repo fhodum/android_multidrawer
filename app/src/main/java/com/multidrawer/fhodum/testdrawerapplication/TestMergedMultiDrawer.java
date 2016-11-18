@@ -7,10 +7,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.multidrawer.fhodum.multidrawer.Drawer;
 import com.multidrawer.fhodum.multidrawer.MultiDrawerView;
+import com.multidrawer.fhodum.multidrawer.PanelDrawer;
 
 import java.util.List;
 import java.util.Vector;
@@ -32,10 +34,20 @@ public class TestMergedMultiDrawer extends Activity {
             ((TextView) body.findViewById(R.id.text_view)).setText("One");
             ((TextView) button.findViewById(R.id.button_text)).setText("One");
 
-            Drawer.Builder builder = new Drawer.Builder();
+            PanelDrawer.Builder builder = new PanelDrawer.Builder();
             builder.setBody(body);
-            builder.setButton(button);
-            rightDrawerView.addDrawer(builder.createDrawer());
+
+
+            final PanelDrawer drawer = builder.createDrawer();
+            rightDrawerView.addDrawer(drawer);
+
+            ((Button)findViewById(R.id.toggleRightButton)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rightDrawerView.toggleDrawer(drawer);
+                }
+            });
+
         }
 
 
@@ -78,6 +90,46 @@ public class TestMergedMultiDrawer extends Activity {
                 }
             });
             topDrawerView.addDrawer(builder.createDrawer());
+        }
+
+        {
+            final MultiDrawerView bottomDrawerView = (MultiDrawerView)findViewById(R.id.multiDrawerBottom);
+            //BOTTOM
+//            final View buttonBottom = LayoutInflater.from(this).inflate(R.layout.top_button,bottomDrawerView , false);
+            View body = LayoutInflater.from(this).inflate(R.layout.bottom_body,bottomDrawerView, false);
+
+//            Drawer.Builder builder = new Drawer.Builder();
+//            builder.setBody(body);
+//            builder.setButton(buttonBottom);
+//            final Drawer drawer = builder.createDrawer();
+//            bottomDrawerView.addDrawer(drawer);
+//            ((TextView)buttonBottom.findViewById(R.id.button_text)).setText("Bottom");
+//            ViewPager vp = (ViewPager)body.findViewById(R.id.view_pager);
+//            vp.setAdapter(new MyAdapter());
+
+            PanelDrawer.Builder builder = new PanelDrawer.Builder();
+            builder.setBody(body);
+
+            builder.setPanelCallback(new PanelDrawer.PanelCallbacks() {
+                @Override
+                public void panelOpened(PanelDrawer drawer) {
+//                    ((TextView)buttonBottom.findViewById(R.id.button_text)).setText("Open");
+                }
+
+                @Override
+                public void panelClosed(PanelDrawer drawer) {
+//                    ((TextView)buttonBottom.findViewById(R.id.button_text)).setText("Closed");
+                }
+            });
+            final PanelDrawer drawer = builder.createDrawer();
+            bottomDrawerView.addDrawer(drawer);
+
+            ((Button)findViewById(R.id.toggleButton)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bottomDrawerView.toggleDrawer(drawer);
+                }
+            });
         }
     }
 

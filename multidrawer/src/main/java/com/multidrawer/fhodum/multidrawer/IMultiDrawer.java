@@ -42,4 +42,6 @@ public interface IMultiDrawer {
      * @return boolean to indicate success or failure of removal
      */
     boolean removeDrawer(Drawer drawer);
+
+    void toggleDrawer(Drawer drawer);
 }

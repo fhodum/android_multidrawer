@@ -30,9 +30,26 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_centerInParent="true"
-        android:text="Toggle Bottom Drawer"
+        android:text="Toggle Right Drawer"
         android:id="@+id/toggleButton"
         android:layout_below="@id/toggleRightButton"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="Toggle Left Drawer1"
+        android:id="@+id/toggleLeftButton1"
+        android:layout_below="@id/toggleButton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="Toggle Left Drawer2"
+        android:id="@+id/toggleLeftButton2"
+        android:layout_below="@id/toggleLeftButton1"/>
 
     <com.multidrawer.fhodum.multidrawer.MultiDrawerView
         android:id="@+id/multiDrawerRight"

@@ -50,20 +50,60 @@ public class TestMergedMultiDrawer extends Activity {
 
         }
 
-
         {
             final MultiDrawerView leftDrawerView = (MultiDrawerView) findViewById(R.id.multiDrawerLeft);
             View button = LayoutInflater.from(this).inflate(R.layout.first_button, leftDrawerView, false);
-            View body = LayoutInflater.from(this).inflate(R.layout.first_body, leftDrawerView, false);
+            View body1 = LayoutInflater.from(this).inflate(R.layout.first_body, leftDrawerView, false);
+            View body2 = LayoutInflater.from(this).inflate(R.layout.first_body, leftDrawerView, false);
 
-            ((TextView) body.findViewById(R.id.text_view)).setText("One");
-            ((TextView) button.findViewById(R.id.button_text)).setText("One");
+            ((TextView) body1.findViewById(R.id.text_view)).setText("One");
+            ((TextView) body2.findViewById(R.id.text_view)).setText("Two");
 
-            Drawer.Builder builder = new Drawer.Builder();
-            builder.setBody(body);
-            builder.setButton(button);
-            leftDrawerView.addDrawer(builder.createDrawer());
+
+
+            PanelDrawer.Builder builder = new PanelDrawer.Builder();
+            builder.setBody(body1);
+
+
+            final PanelDrawer drawer = builder.createDrawer();
+            leftDrawerView.addDrawer(drawer);
+
+            builder = new PanelDrawer.Builder();
+            builder.setBody(body2);
+            final PanelDrawer drawer2= builder.createDrawer();
+
+            leftDrawerView.addDrawer(drawer2);
+
+
+            ((Button)findViewById(R.id.toggleLeftButton1)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    leftDrawerView.toggleDrawer(drawer);
+                }
+            });
+
+            ((Button)findViewById(R.id.toggleLeftButton2)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    leftDrawerView.toggleDrawer(drawer2);
+                }
+            });
+
         }
+
+//        {
+//            final MultiDrawerView leftDrawerView = (MultiDrawerView) findViewById(R.id.multiDrawerLeft);
+//            View button = LayoutInflater.from(this).inflate(R.layout.first_button, leftDrawerView, false);
+//            View body = LayoutInflater.from(this).inflate(R.layout.first_body, leftDrawerView, false);
+//
+//            ((TextView) body.findViewById(R.id.text_view)).setText("One");
+//            ((TextView) button.findViewById(R.id.button_text)).setText("One");
+//
+//            Drawer.Builder builder = new Drawer.Builder();
+//            builder.setBody(body);
+//            builder.setButton(button);
+//            leftDrawerView.addDrawer(builder.createDrawer());
+//        }
 
         {
             MultiDrawerView topDrawerView = (MultiDrawerView)findViewById(R.id.multiDrawerTop);

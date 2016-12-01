@@ -220,8 +220,9 @@ public class MultiDrawerView extends RelativeLayout implements IMultiDrawer {
                 openDrawer(drawer);
             }
         }else {
-            lastClickedButton = drawer.getButton();
+
             openDrawer(drawer);
+            lastClickedButton = drawer.getButton();
         }
     }
 
